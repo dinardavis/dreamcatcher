@@ -3,7 +3,7 @@
 <br />
 <div align="center" id="top">
   <a href="https://github.com/dinardavis/travel_app">
-    <img src="public/imgs/favicon.png" alt="Travel Inspiration Dashboard Logo" height="80">
+    <img src="client/public/imgs/favicon.png" alt="Travel Inspiration Dashboard Logo" height="80">
   </a>
 
 <h3 align="center">Travel Dream Dashboard</h3>
@@ -57,7 +57,7 @@
 <br />
 
 <div align="center">
-  <img src="public/imgs/project_thumbnail.png" alt="An Image of the travel dashboard featuring the various components" height="500">
+  <img src="client/public/imgs/project_thumbnail.png" alt="An Image of the travel dashboard featuring the various components" height="500">
 </div>
 
 <br />
@@ -148,7 +148,7 @@ npm start
 In this project I have included various error handling for instances of failed API fetch retrievals. Also covered are cases where the user inputs a city that is not included in the working data set. 
 
 <div align="center">
-  <img src="public/imgs/error.png" alt="Image showing an error message when the city is not included in the data set." height="500">
+  <img src="client/public/imgs/error.png" alt="Image showing an error message when the city is not included in the data set." height="500">
 </div>
 
 
@@ -157,7 +157,9 @@ In this project I have included various error handling for instances of failed A
 Additionally included in the sidebar, are examples of several widgets that could be added to the project in the future, such as a user login component to personalize and store the search data, travel advisory alerts, and a foreign currency tracker. Currently, the user will be greeted with a "Coming Soon" notification when interacting with any of these planned enhancements. 
 
 <div align="center">
-  <img src="public/imgs/app_demo.webp" alt="Demo of the coming soon notification attached to the sidebar widgets" height="500">
+  <img src="client/public/imgs/app_demo.webp" alt="Demo of the coming soon notification attached to the sidebar widgets" height="500">
+
+  
 </div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
