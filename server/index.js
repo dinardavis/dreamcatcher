@@ -18,9 +18,11 @@ import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
 
+
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -51,6 +53,12 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+
+/* USE CLIENT APP */ 
+app.use(express.static(path.join(__dirname, '/client/build')))
+
+/* RENDER CLIENT FOR ALL PAGES */
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, '/client/build/index.htlm'))); 
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
