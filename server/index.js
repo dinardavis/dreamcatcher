@@ -55,10 +55,10 @@ app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 
 /* USE CLIENT APP */ 
-app.use(express.static(path.join(__dirname, '/client/build')))
+app.use(express.static(path.join(__dirname, "/client/build")))
 
 /* RENDER CLIENT FOR ALL PAGES */
-app.get("*", (req, res) => res.sendFile(path.join(__dirname, '/client/build/index.html'))); 
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "/client/build/index.html"))); 
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
