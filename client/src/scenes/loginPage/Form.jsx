@@ -16,7 +16,7 @@ import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 
-const AUTH_URL = "http://auth"
+const AUTH_URL = "./auth"
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
