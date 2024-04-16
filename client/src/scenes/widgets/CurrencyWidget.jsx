@@ -62,8 +62,8 @@ import WidgetCloseButton from "./WidgetCloseButton";
   return (
     <>
       <WidgetWrapper
-        className="currency-container light-mode"
-        style={{ display: props.showWidgets.showCurrencyWidget ? "" : "none" }}
+        className="currency-container light-mode widget-radius"
+        style={{ display: props.showWidgets.showCurrencyWidget ? '': 'none'}}
       >
       <WidgetCloseButton
         closeWidgetFunction={props.toggleCurrencyWidget}

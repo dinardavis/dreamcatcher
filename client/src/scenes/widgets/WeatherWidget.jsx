@@ -70,12 +70,13 @@ export default function WeatherWidget(props) {
 
   return (
     <>
-      {!weatherInfo ? 
+      <WidgetWrapper className="weather-container light-mode widget-radius" style={{ display: props.showWidgets.showWeatherWidget ? '': 'none'}}>
+        <WidgetCloseButton
+          closeWidgetFunction={props.toggleWeatherWidget}
+        ></WidgetCloseButton>
+        {!weatherInfo ? 
         <p className="loading">Loading...</p> :
-        <WidgetWrapper className="weather-container light-mode widget-radius" style={{ display: props.showWidgets.showWeatherWidget ? '': 'none'}}>
-          <WidgetCloseButton
-            closeWidgetFunction={props.toggleWeatherWidget}
-          ></WidgetCloseButton>
+        <>
           <p className="weather--location">{weatherInfo.name}, {weatherInfo.sys.country}</p>
           <div className="temp-icon-container">
             <p className="weather--temp">{Math.round(weatherInfo.main.temp)} {tempUnits === "imperial" ? "°F" : "°C" }</p>
@@ -84,7 +85,7 @@ export default function WeatherWidget(props) {
           <p className="weather--feels">Feels Like: {Math.round(weatherInfo.main.feels_like)} {tempUnits === "imperial" ? "°F" : "°C" }</p>
           <div className="weather--desc">{weatherInfo.weather[0].main} </div>
       
-          {/* {fetchDataError && <div className="error-message">There was a problem retrieving the weather for that location</div>} */}
+    
         
           <div className="weather-footer">
             <div className="temp-min-max"> 
@@ -93,8 +94,9 @@ export default function WeatherWidget(props) {
             </div>
             <div className="toggle-temp-units" onClick={toggleUnits}>°F / °C</div>
           </div>
-        </WidgetWrapper>
-      }
+        </>
+        }
+      </WidgetWrapper>
     </>
   )
 }
