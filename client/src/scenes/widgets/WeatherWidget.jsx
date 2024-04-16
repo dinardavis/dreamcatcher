@@ -4,7 +4,7 @@ import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
 import WidgetCloseButton from "./WidgetCloseButton";
 
-const WEATHER_API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY
+const WEATHER_API_KEY = '/etc/secrets/REACT_APP_OPENWEATHER_API_KEY'
 
 export default function WeatherWidget(props) {
   const { palette } = useTheme();
