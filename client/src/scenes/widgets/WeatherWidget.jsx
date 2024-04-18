@@ -16,18 +16,17 @@ export default function WeatherWidget(props) {
   const [tempUnits, setTempUnits] = React.useState(JSON.parse(localStorage.getItem("currentTempUnits")) || "imperial")
   const [fetchDataError, setFetchDataError] = React.useState(false);
 
-  // const WEATHER_API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY
 
-  // React.useEffect(() => {
-  //   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${props.searchParam}&units=${tempUnits}&appid=${WEATHER_API_KEY}`)
-  //     .then(res => res.json())
-  //     .then(data => setWeatherInfo(data))
-  //     .then(setFetchDataError(false))
-  //     .catch(err => {
-  //         console.log(err)
-  //         setFetchDataError(true)
-  //     })
-  // }, [props.searchParam, tempUnits])
+  React.useEffect(() => {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${props.searchParam}&units=${tempUnits}&appid=${WEATHER_API_KEY}`)
+      .then(res => res.json())
+      .then(data => setWeatherInfo(data))
+      .then(setFetchDataError(false))
+      .catch(err => {
+          console.log(err)
+          setFetchDataError(true)
+      })
+  }, [props.searchParam, tempUnits])
 
   // Save chosen units to localStorage
 
