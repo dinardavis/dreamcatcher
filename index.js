@@ -70,12 +70,9 @@ app.get('/advisory', (req, res) => {
 
 
 
-
 /* FLIGHT WIDGET DATA SEARCH */
-app.get('/flight', (req, res) => {
-  const PHOTOS_API_KEY = process.env.REACT_APP_UNSPLASH_API_KEY
-
-  fetch(`https://api.unsplash.com/search/photos/?query=tokyo&client_id=${PHOTOS_API_KEY}&orientation=portrait&per_page=50`)
+app.get('/photos', (req, res) => {
+  fetch(`https://api.unsplash.com/search/photos/?query=tokyo&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&orientation=portrait&per_page=50`)
       .then(res => res.json())
       .then(data => res.json(data))
       .catch((error) => {
