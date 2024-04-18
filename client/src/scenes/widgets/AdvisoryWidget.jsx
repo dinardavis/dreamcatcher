@@ -15,7 +15,7 @@ export default function AdvisoryWidget(props) {
   const [advisories, setAdvisories] = React.useState(null)
     
   React.useEffect(() => {
-    fetch(`https://www.travel-advisory.info/api`)
+    fetch(`./advisory`)
       .then(res => res.json())
       .then(data => setAdvisories(data.data[props.countryCode]))
       .catch((err) => {

@@ -57,6 +57,18 @@ app.use("/posts", postRoutes);
 /* USE CLIENT APP */ 
 app.use(express.static(path.join(__dirname, "/client/build")))
 
+
+  /* ADVISORY WIDGET SEARCH */
+
+  app.get('/advisory', (req, res) => {
+    fetch(`https://www.travel-advisory.info/api`)
+    .then(res => res.json())
+    .then(data => res.json(data.data))
+      .catch((err) => {
+        console.log(err);
+    })
+  })
+
 /* RENDER CLIENT FOR ALL PAGES */
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "/client/build/index.html"))); 
 
@@ -76,7 +88,7 @@ mongoose
   })
   .catch((error) => console.log(`${error} did not connect`));
 
-app.get('/advisory', (req, res) => {
-  res.json('hi')
-})
+
+
+  
   
