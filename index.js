@@ -75,3 +75,27 @@ mongoose
     // Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} did not connect`));
+
+app.get('/home', (req,res) => {
+  // const [weatherInfo, setWeatherInfo] = React.useState(null)
+  // const WEATHER_API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY
+  // const searchParam = "london";
+  // const tempUnits = "imperial"
+
+  // React.useEffect(() => {
+  //   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchParam}&units=${tempUnits}&appid=${WEATHER_API_KEY}`)
+  //     .then(res => res.json())
+  //     .then(data => setWeatherInfo(data))
+  //     .then(setFetchDataError(false))
+  //     .catch(err => {
+  //         console.log(err)
+  //         setFetchDataError(true)
+  //     })
+  // }, [searchParam, tempUnits])
+  
+  
+  const WEATHER_API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY
+  console.log(WEATHER_API_KEY)
+
+})
+  

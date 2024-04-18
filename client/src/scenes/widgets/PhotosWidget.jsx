@@ -5,7 +5,7 @@ import { Box, Typography, Divider, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
 
-const PHOTOS_API_KEY = `./etc/secrets/REACT_APP_UNSPLASH_API_KEY`
+const PHOTOS_API_KEY = process.env.REACT_APP_UNSPLASH_API_KEY
 
 /* PHOTO CAROUSEL */
 
