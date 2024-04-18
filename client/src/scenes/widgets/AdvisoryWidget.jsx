@@ -17,7 +17,7 @@ export default function AdvisoryWidget(props) {
   React.useEffect(() => {
     fetch(`https://dreamcatcher.onrender.com/advisory`)
       .then(res => res.json())
-      .then(data => setAdvisories(data.data[props.countryCode]))
+      .then(data => setAdvisories(data[props.countryCode]))
       .catch((err) => {
         console.log(err);
       })
