@@ -19,8 +19,10 @@ export default function PhotosWidget(props) {
   const [index, setIndex] = React.useState(0);
   const timeoutRef = React.useRef(null);
     
+ // fetch(`https://api.unsplash.com/search/photos/?query=${props.searchParam}&client_id=${PHOTOS_API_KEY}&orientation=portrait&per_page=50`)
+
   React.useEffect(() => {
-    fetch(`https://api.unsplash.com/search/photos/?query=${props.searchParam}&client_id=${PHOTOS_API_KEY}&orientation=portrait&per_page=50`)
+    fetch(`https://dreamcatcher.onrender.com/photos`)
       .then(res => res.json())
       .then(data => setPhotos(data.results))
       .catch((error) => {
