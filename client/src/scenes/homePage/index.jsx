@@ -237,6 +237,7 @@ const HomePage = () => {
   }
 
   const sendLocationToServer = async(location) => {
+    console.log('working')
     const result = await fetch(`https://dreamcatcher.onrender.com/location`, {
       method: 'POST',
       headers: {
@@ -258,7 +259,7 @@ const HomePage = () => {
       introCopyError.style.visibility = "visible";
     }
 
-    sendLocationToServer();
+    sendLocationToServer(location);
 
     clearInput();
   }
