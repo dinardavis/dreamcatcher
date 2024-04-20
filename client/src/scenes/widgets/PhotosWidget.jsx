@@ -23,7 +23,7 @@ export default function PhotosWidget(props) {
     fetch(`https://dreamcatcher.onrender.com/photos`)
       .then(res => res.json())
       // .then(data => setPhotos(data.results))
-      .then(data => console.log(data.results))
+      .then(data => console.log(data.length))
       .catch((error) => {
         console.log(error)
       });
