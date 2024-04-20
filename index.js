@@ -77,7 +77,7 @@ app.get('/location', (req, res) => {
 
 /* PHOTOS WIDGET DATA SEARCH */
 app.get('/photos', (req, res) => {
-  const location = "paris"
+  const location = "London"
 
   fetch(`https://api.unsplash.com/search/photos/?query=${location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&orientation=portrait&per_page=50`)
       .then(res => res.json())
