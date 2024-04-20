@@ -24,7 +24,8 @@ export default function PhotosWidget(props) {
   React.useEffect(() => {
     fetch(`https://dreamcatcher.onrender.com/photos`)
       .then(res => res.json())
-      .then(data => setPhotos(data.results))
+      // .then(data => setPhotos(data.results))
+      .then(data => console.log(data.results))
       .catch((error) => {
         console.log(error)
       });

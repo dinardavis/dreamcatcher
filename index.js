@@ -87,6 +87,22 @@ app.get('/photos', (req, res) => {
       });
 })
 
+
+/* WHEATHER WIDGET DATA SEARCH */
+app.get('/photos', (req, res) => {
+  const location = "paris"
+  const tempUnits = "imperial"
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${tempUnits}&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)
+  .then(res => res.json())
+  .then(data => setWeatherInfo(data))
+  .then(setFetchDataError(false))
+  .catch(err => {
+      console.log(err)
+      setFetchDataError(true)
+  });
+
+})
+
 /* RENDER CLIENT FOR ALL PAGES */
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "/client/build/index.html"))); 
 
