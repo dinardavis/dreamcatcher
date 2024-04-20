@@ -69,10 +69,9 @@ app.get('/advisory', (req, res) => {
 })
 
 
-
 /* FLIGHT WIDGET DATA SEARCH */
 app.get('/photos', (req, res) => {
-  fetch(`https://api.unsplash.com/search/photos/?query=tokyo&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&orientation=portrait&per_page=50`)
+  fetch(`https://api.unsplash.com/search/photos/?query=london&client_id=${process.env.PHOTOS_API_KEY}&orientation=portrait&per_page=50`)
       .then(res => res.json())
       .then(data => res.json(data))
       .catch((error) => {

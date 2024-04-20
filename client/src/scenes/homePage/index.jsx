@@ -236,17 +236,6 @@ const HomePage = () => {
     setToAirportCode(airport[0].iata_code);
   }
 
-  const sendLocationToServer = async(location) => {
-    console.log('working')
-    const result = await fetch(`https://dreamcatcher.onrender.com/location`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: location
-    })
-  }
-
   function updateLocation(e) {
     e.preventDefault();
     const introCopyError = document.querySelector(".intro-copy-error");
@@ -258,9 +247,6 @@ const HomePage = () => {
     } else {
       introCopyError.style.visibility = "visible";
     }
-
-    sendLocationToServer(location);
-
     clearInput();
   }
 
