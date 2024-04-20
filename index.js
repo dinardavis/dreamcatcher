@@ -89,7 +89,7 @@ app.get('/photos', (req, res) => {
 
 
 /* WHEATHER WIDGET DATA SEARCH */
-app.get('/photos', (req, res) => {
+app.get('/weather', (req, res) => {
   const location = "paris"
   const tempUnits = "imperial"
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${tempUnits}&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)

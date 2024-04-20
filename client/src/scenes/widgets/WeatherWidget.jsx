@@ -18,7 +18,7 @@ export default function WeatherWidget(props) {
 
 
   React.useEffect(() => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${props.searchParam}&units=${tempUnits}&appid=${WEATHER_API_KEY}`)
+    fetch(`https://dreamcatcher.onrender.com/weather`)
       .then(res => res.json())
       .then(data => setWeatherInfo(data))
       .then(setFetchDataError(false))
