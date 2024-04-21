@@ -115,7 +115,7 @@ app.get('/flight', (req, res) => {
 
   fetch(`https://api1.diversesaga.com/api/v1/searchFlights?origin=${fromAirportCode}&destination=${toAirportCode}&date=${departureDate}&returnDate=${returnDate}&adults=1&currency=USD&countryCode=US&market=en-US`, options)
   .then(res => res.json())
-  .then(data => console.log(data.data))
+  .then(data => console.log(data))
   .catch(err => {
       console.log(err)
    });

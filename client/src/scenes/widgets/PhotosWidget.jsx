@@ -18,18 +18,20 @@ export default function PhotosWidget(props) {
   const [photos, setPhotos] = React.useState([])
   const [index, setIndex] = React.useState(0);
   const timeoutRef = React.useRef(null);
-    
- // fetch(`https://api.unsplash.com/search/photos/?query=${props.searchParam}&client_id=${PHOTOS_API_KEY}&orientation=portrait&per_page=50`)
 
   React.useEffect(() => {
     fetch(`https://dreamcatcher.onrender.com/photos`)
       .then(res => res.json())
-      // .then(data => setPhotos(data.results))
       .then(data => setPhotos(data.results))
       .catch((error) => {
         console.log(error)
       });
   }, [props.searchParam])
+
+  console.log(photos[0].urls.regular)
+  console.log(photos[1].urls.regular)
+  console.log(photos[2].urls.regular)
+  console.log(photos[3].urls.regular)
 
 
   // Image change timing
@@ -74,7 +76,7 @@ export default function PhotosWidget(props) {
     return (  
       <div className="slide" key={photo.id} to="route" target="_blank" rel="noopener noreferrer" alt={photo.alt_description}>
         <a href={photo.urls.regular} key={photo.id} className="img-link" to="route" target="_blank" rel="noopener noreferrer">
-          <img src={`./${photo.urls.regular}`} alt={photo.alt_description} id={`img-${index}`} className="grid-img" />
+          <img src={photo.urls.regular} alt={photo.alt_description} id={`img-${index}`} className="grid-img" />
         </a>  
       </div>
     )
