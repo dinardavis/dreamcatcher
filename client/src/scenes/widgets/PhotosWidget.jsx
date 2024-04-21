@@ -5,6 +5,8 @@ import { Box, Typography, Divider, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
 
+const PHOTOS_API_KEY = process.env.REACT_APP_UNSPLASH_API_KEY
+
 /* PHOTO CAROUSEL */
 
 export default function PhotosWidget(props) {
@@ -23,7 +25,7 @@ export default function PhotosWidget(props) {
     fetch(`https://dreamcatcher.onrender.com/photos`)
       .then(res => res.json())
       // .then(data => setPhotos(data.results))
-      .then(data => console.log(data.results.length))
+      .then(data => setPhotos(data.results))
       .catch((error) => {
         console.log(error)
       });
