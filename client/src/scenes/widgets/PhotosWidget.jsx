@@ -28,8 +28,6 @@ export default function PhotosWidget(props) {
       });
   }, [props.searchParam])
 
-  console.log(photos)
-
 
   // Image change timing
 
@@ -73,7 +71,7 @@ export default function PhotosWidget(props) {
     return (  
       <div className="slide" key={photo.id} to="route" target="_blank" rel="noopener noreferrer" alt={photo.alt_description}>
         <a href={photo.urls.regular} key={photo.id} className="img-link" to="route" target="_blank" rel="noopener noreferrer">
-          <img src={photo.urls.regular} alt={photo.alt_description} id={`img-${index}`} className="grid-img" />
+          <img src={`/${photo.urls.regular}`} alt={photo.alt_description} id={`img-${index}`} className="grid-img" />
         </a>  
       </div>
     )

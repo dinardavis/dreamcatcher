@@ -88,7 +88,7 @@ app.get('/photos', (req, res) => {
 })
 
 
-/* WHEATHER WIDGET DATA SEARCH */
+/* WEATHER WIDGET DATA SEARCH */
 app.get('/weather', (req, res) => {
   const location = "paris"
   const tempUnits = "imperial"
