@@ -28,10 +28,7 @@ export default function PhotosWidget(props) {
       });
   }, [props.searchParam])
 
-  console.log(photos[0].urls.regular)
-  console.log(photos[1].urls.regular)
-  console.log(photos[2].urls.regular)
-  console.log(photos[3].urls.regular)
+  console.log(photos)
 
 
   // Image change timing
