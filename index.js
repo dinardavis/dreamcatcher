@@ -79,7 +79,7 @@ app.get('/location', (req, res) => {
 app.get('/photos', (req, res) => {
   const location = "London"
 
-  fetch(`https://api.unsplash.com/search/photos/?query=${location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&orientation=portrait&per_page=50`)
+  fetch(`https://api.unsplash.com/search/photos/?query=${location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&orientation=portrait&per_page=30`)
       .then(res => res.json())
       .then(data => res.json(data))
       .catch((error) => {
@@ -98,7 +98,27 @@ app.get('/weather', (req, res) => {
   .catch(err => {
       console.log(err)
   });
+})
 
+/* FLIGHT WIDGET DATA SEARCH */
+app.get('/flight', (req, res) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Authorization': `${process.env.REACT_APP_FLIGHT_API_KEY}`,
+    }
+  };
+  const fromAirportCode = 'SFO'
+  const toAirportCode = 'LHR'
+  const departureDate = '04/28/2024'
+  const returnDate = '05/22/2024'
+
+  fetch(`https://api1.diversesaga.com/api/v1/searchFlights?origin=${fromAirportCode}&destination=${toAirportCode}&date=${departureDate}&returnDate=${returnDate}&adults=1&currency=USD&countryCode=US&market=en-US`, options)
+  .then(res => res.json())
+  .then(data => res.json(data.data))
+  .catch(err => {
+      console.log(err)
+   });
 })
 
 /* RENDER CLIENT FOR ALL PAGES */

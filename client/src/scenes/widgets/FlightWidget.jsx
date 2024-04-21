@@ -83,16 +83,9 @@ function getReturnDate(e) {
 const FLIGHT_API_KEY = process.env.REACT_APP_FLIGHT_API_KEY
 
   React.useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        'Authorization': `${FLIGHT_API_KEY}`,
-      }
-    };
-
-    fetch(`https://api1.diversesaga.com/api/v1/searchFlights?origin=${props.fromAirportCode}&destination=${props.toAirportCode}&date=${departureDate}&returnDate=${returnDate}&adults=1&currency=USD&countryCode=US&market=en-US`, options)
+    fetch(`https://dreamcatcher.onrender.com/flight`)
     .then(res => res.json())
-    .then(data => setFlightPrice(data.data[0].price.amount.toFixed(2) || 599.99))
+    .then(data => setFlightPrice(data[0].price.amount.toFixed(2) || 599.99))
       .then(setFetchDataError(false))
     .catch(err => {
         console.log(err)
