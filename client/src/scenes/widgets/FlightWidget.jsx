@@ -93,6 +93,8 @@ const FLIGHT_API_KEY = process.env.REACT_APP_FLIGHT_API_KEY
      });
   }, [props.searchParam, props.toAirportCode, props.fromAirportCode, returnDate, departureDate, FLIGHT_API_KEY])
 
+  console.log(flightPrice)
+
   return (
     <WidgetWrapper className="flight-container light-mode widget-radius" style={{ display: props.showWidgets.showFlightWidget ? '': 'none'}}>
       <WidgetCloseButton
