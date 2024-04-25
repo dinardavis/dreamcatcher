@@ -1,4 +1,5 @@
-import express from "express";
+import express, { response } from "express";
+import axios from "axios";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -88,7 +89,7 @@ app.get('/photos', (req, res) => {
 })
 
 
-/* WEATHER WIDGET DATA SEARCH */
+/* WHEATHER WIDGET DATA SEARCH */
 app.get('/weather', (req, res) => {
   const location = "paris"
   const tempUnits = "imperial"
@@ -102,23 +103,27 @@ app.get('/weather', (req, res) => {
 
 /* FLIGHT WIDGET DATA SEARCH */
 app.get('/flight', (req, res) => {
-  const options = {
-    method: 'GET',
-    headers: {
-      'Authorization': `${process.env.REACT_APP_FLIGHT_API_KEY}`,
-    }
-  };
+
   const fromAirportCode = 'SFO'
   const toAirportCode = 'LHR'
-  const departureDate = '04/28/2024'
-  const returnDate = '05/22/2024'
+  const departureDate = '2024-05-07'
+  const returnDate = '2024-05-14'
 
-  fetch(`https://api1.diversesaga.com/api/v1/searchFlights?origin=${fromAirportCode}&destination=${toAirportCode}&date=${departureDate}&returnDate=${returnDate}&adults=1&currency=USD&countryCode=US&market=en-US`, options)
-  .then(res => res.json())
-  .then(data => console.log(data))
-  .catch(err => {
-      console.log(err)
-   });
+  const options = {
+    method: 'GET',
+    url: `https://api1.diversesaga.com/api/v1/searchFlights?origin=${fromAirportCode}&destination=${toAirportCode}&date=${departureDate}&returnDate=${returnDate}&adults=1&currency=USD&countryCode=US&market=en-US`,
+    headers: {
+      'Authorization': process.env.REACT_APP_FLIGHT_API_KEY,
+    }
+  };
+
+  axios.request(options).then((res) => {
+    res.json(res.data)
+  }).catch((error) => {
+    console.error(error)
+  })
+
+
 })
 
 /* RENDER CLIENT FOR ALL PAGES */

@@ -32,7 +32,7 @@ export default function CurrencyDropdown(props) {
                     key={country.id}
                     onClick={() => openMenu(country.id)}
                   >
-                    <img src={country.flag} alt={`Flag of ${country.name}`} />
+                    {/* <img src={country.flag} alt={`Flag of ${country.name}`} /> */}
                     <p className="currency-menu-name">{country.name}</p>
                   </div>
                 );
