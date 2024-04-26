@@ -242,12 +242,17 @@ const HomePage = () => {
 
   const updateLocationData = async() => {
     const currentLocationData = await fetch(`https://dreamcatcher.onrender.com/location`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
+      method: "PATCH",
+      header: {
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(location)
+      body: JSON.stringify(
+        {
+          "current": "Kiev"
+        }
+      )
     })
+    console.log('working!')
   }
 
     // fetch(`https://dreamcatcher.onrender.com/location`)
@@ -263,7 +268,7 @@ const HomePage = () => {
     if (cityNames.includes(location.toUpperCase())) {
       introCopyError.style.visibility = "hidden";
       setSearchParam(location);
-      updateLocationData();
+      updateLocationData(location);
       getAirportCode();
       getCountryCode(airportData, "city", location);
     } else {
