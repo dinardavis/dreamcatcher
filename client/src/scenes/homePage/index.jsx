@@ -239,11 +239,11 @@ const HomePage = () => {
 
   function retrieveLocationData() {
     fetch(`https://dreamcatcher.onrender.com/location`)
-      .then(res => res.json())
-      .then(data => console.log(location.current))
-      .catch((err) => {
-        console.log(err);
-      })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   function updateLocation(e) {
