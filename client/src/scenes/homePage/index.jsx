@@ -246,7 +246,7 @@ const HomePage = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: location
+      body: JSON.stringify(location)
     })
   }
 
