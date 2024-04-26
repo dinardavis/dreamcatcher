@@ -23,7 +23,6 @@ export default function CitySearchWidget(props) {
           name="citySearch"
           placeholder="Where to?"
           id="city-search-input"
-          className="search-input"
           value={props.location.userInput}
           onChange={props.handleChange}
         />

@@ -218,8 +218,11 @@ const HomePage = () => {
   }
 
   function clearInput() {
-    document.querySelector(".search-input").value = "";
+    document.querySelector("#city-search-input").value = "";
   }
+
+
+
 
   // Select airport from user input
 
@@ -237,22 +240,30 @@ const HomePage = () => {
   }
 
 
-  function retrieveLocationData() {
-    fetch(`https://dreamcatcher.onrender.com/location`)
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch((err) => {
-      console.log(err);
+  const updateLocationData = async() => {
+    const currentLocationData = await fetch(`https://dreamcatcher.onrender.com/advisory`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: location
     })
   }
+
+    // fetch(`https://dreamcatcher.onrender.com/location`)
+    // .then(res => res.json())
+    // .then(data => console.log(data.current))
+    // .catch((err) => {
+    //   console.log(err);
+    // })
 
   function updateLocation(e) {
     e.preventDefault();
     const introCopyError = document.querySelector(".intro-copy-error");
     if (cityNames.includes(location.toUpperCase())) {
       introCopyError.style.visibility = "hidden";
-      retrieveLocationData();
       setSearchParam(location);
+      updateLocationData();
       getAirportCode();
       getCountryCode(airportData, "city", location);
     } else {
