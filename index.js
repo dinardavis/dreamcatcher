@@ -71,23 +71,25 @@ app.get('/advisory', (req, res) => {
 
 /* LOCATION API */
 app.get('/location', (req, res) => {
-  const location = "London"
+  const location = {
+    current: "Paris"
+  }
   res.json(location)
 })
 
-
 /* PHOTOS WIDGET DATA SEARCH */
 app.get('/photos', (req, res) => {
-  const location = "London"
+  const location = {
+    current: "Paris"
+  }
 
-  fetch(`https://api.unsplash.com/search/photos/?query=${location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&orientation=portrait&per_page=30`)
+  fetch(`https://api.unsplash.com/search/photos/?query=${location.current}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&orientation=portrait&per_page=30`)
       .then(res => res.json())
       .then(data => res.json(data))
       .catch((error) => {
         console.log(error)
       });
 })
-
 
 /* WHEATHER WIDGET DATA SEARCH */
 app.get('/weather', (req, res) => {
