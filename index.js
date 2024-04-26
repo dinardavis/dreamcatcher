@@ -60,7 +60,7 @@ app.use(express.static(path.join(__dirname, "/client/build")))
 
 /* LOCATION API */
 app.get('/location', (req, res) => {
-  const location = "Paris"
+  let location = "Paris"
   res.json(location)
 })
 

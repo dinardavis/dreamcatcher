@@ -241,7 +241,7 @@ const HomePage = () => {
 
 
   const updateLocationData = async() => {
-    const currentLocationData = await fetch(`https://dreamcatcher.onrender.com/advisory`, {
+    const currentLocationData = await fetch(`https://dreamcatcher.onrender.com/location`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
