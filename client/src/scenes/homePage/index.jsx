@@ -236,11 +236,22 @@ const HomePage = () => {
     setToAirportCode(airport[0].iata_code);
   }
 
+
+  function retrieveLocationData() {
+    fetch(`https://dreamcatcher.onrender.com/location`)
+      .then(res => res.json())
+      .then(data => console.log(location.current))
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   function updateLocation(e) {
     e.preventDefault();
     const introCopyError = document.querySelector(".intro-copy-error");
     if (cityNames.includes(location.toUpperCase())) {
       introCopyError.style.visibility = "hidden";
+      retrieveLocationData();
       setSearchParam(location);
       getAirportCode();
       getCountryCode(airportData, "city", location);

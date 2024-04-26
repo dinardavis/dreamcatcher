@@ -58,6 +58,13 @@ app.use("/posts", postRoutes);
 /* USE CLIENT APP */ 
 app.use(express.static(path.join(__dirname, "/client/build")))
 
+/* LOCATION API */
+app.get('/location', (req, res) => {
+  const location = {
+    current: "Paris"
+  }
+  res.json(location)
+})
 
 /* ADVISORY WIDGET DATA SEARCH */
 app.get('/advisory', (req, res) => {
@@ -67,14 +74,6 @@ app.get('/advisory', (req, res) => {
     .catch((err) => {
       console.log(err);
   })
-})
-
-/* LOCATION API */
-app.get('/location', (req, res) => {
-  const location = {
-    current: "Paris"
-  }
-  res.json(location)
 })
 
 /* PHOTOS WIDGET DATA SEARCH */
