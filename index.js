@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express from "express";
 import axios from "axios";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
@@ -92,7 +92,7 @@ app.get('/photos', (req, res) => {
       });
 })
 
-/* WHEATHER WIDGET DATA SEARCH */
+/* WEATHER WIDGET DATA SEARCH */
 app.get('/weather', (req, res) => {
   const location = "paris"
   const tempUnits = "imperial"
@@ -147,8 +147,3 @@ mongoose
     // Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} did not connect`));
-
-
-
-  
-  

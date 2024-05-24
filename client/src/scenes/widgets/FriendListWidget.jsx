@@ -59,9 +59,9 @@ export default function FriendListWidget({ userId, toggleFriendListWidget, showW
         flexDirection="column" 
         gap="1.5rem"
       >
-        {friends.map((friend) => (
+        {friends.map((friend, index) => (
           <Friend
-            key={friend._id}
+            key={index}
             friendId={friend._id}
             name={`${friend.firstName} ${friend.lastName}`}
             subtitle={friend.occupation}

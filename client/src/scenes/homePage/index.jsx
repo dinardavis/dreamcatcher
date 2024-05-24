@@ -26,6 +26,15 @@ import MyPostWidget from "scenes/widgets/MyPostWidget";
 import PostsWidget from "scenes/widgets/PostsWidget";
 
 
+const debounce = (fn, delay) => {
+  let timerId;
+  return (...args) => {
+    clearTimeout(timerId);
+
+    timerId = setTimeout(() => fn(...args), delay);
+  }
+};
+
 
 const HomePage = () => {
   const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
@@ -62,6 +71,7 @@ const HomePage = () => {
     showPostsWidget: true, 
   });
   const [isVisible, setIsVisible] = React.useState(false);
+  const timeoutId = React.useRef(null)
 
   function toggleFlightWidget() {
     setShowWidgets(prevWidgets => {
@@ -206,6 +216,8 @@ const HomePage = () => {
     setIsVisible((prevVisible) => !prevVisible);
   }
 
+
+
   if (isVisible) {
     setTimeout(() => {
       setIsVisible(false);
@@ -214,7 +226,7 @@ const HomePage = () => {
 
   function handleChange(event) {
     const value = event.target.value;
-    setLocation(value);
+    debounce(setLocation(value), 500);
   }
 
   function clearInput() {
