@@ -58,6 +58,7 @@ app.use("/posts", postRoutes);
 /* USE CLIENT APP */ 
 app.use(express.static(path.join(__dirname, "/client/build")))
 
+/* CURRENT SEARCH DATA */
 let currentCityAndTempInfo;
 let currentFlightInfo;
 
@@ -71,6 +72,15 @@ app.get('/currentCityAndTemp', (req, res) => {
   res.send(currentCityAndTempInfo)
 })
 
+app.post('/flightinfo', (req, res) => {
+  const { flightParcel } = req.body
+  currentFlightInfo = flightParcel
+})
+
+app.get('/flightinfo', (req, res) => { 
+  res.send(currentFlightInfo)
+})
+
 
 app.post('/initializeData', (req, res) => {
   const { flightParcel } = req.body
@@ -82,58 +92,45 @@ app.post('/initializeData', (req, res) => {
 })
 
 
-/* PHOTOS WIDGET DATA SEARCH */
+
+/* PHOTO CAROUSEL SEARCH API CALL */
+
+const PHOTO_API_KEY = process.env.UNSPLASH_API_KEY
+
 app.get('/photos', (req, res) => {
-  const location = {
-    current: "Paris"
-  }
-
-  fetch(`https://api.unsplash.com/search/photos/?query=${location.current}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&orientation=portrait&per_page=30`)
-      .then(res => res.json())
-      .then(data => res.json(data))
-      .catch((error) => {
-        console.log(error)
-      });
+  let photosArray = []
+  fetch(`https://api.unsplash.com/search/photos/?query=${currentCityAndTempInfo.city}&client_id=${PHOTO_API_KEY}&orientation=portrait&per_page=30`)
+  .then(res => res.json())
+  .then(data => res.json(data))
+  .then(data => photosArray.push(data))
+  .catch((error) => {
+    console.log(error)
+  });
 })
 
-const WEATHER_API_KEY = process.env.OPENWEATHER_API_KEY
 
-app.get('/weather', (req, res) => {
-  setTimeout(() => {
-    console.log(currentCityAndTempInfo)
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCityAndTempInfo.city}&units=${currentCityAndTempInfo.temperatureUnits}&appid=${WEATHER_API_KEY}`)
-    .then(res => res.json())
-    .then(data => res.json(data))
-    .catch(err => {
-        console.log(err)
-    })
-  }, 2000);
-})
 
-/* FLIGHT WIDGET DATA SEARCH */
+/* FLIGHT SEARCH API CALL */
+
+const FLIGHT_INFO_API_KEY = process.env.FLIGHT_API_KEY
+
 app.get('/flight', (req, res) => {
-
-  const fromAirportCode = 'SFO'
-  const toAirportCode = 'LHR'
-  const departureDate = '2024-05-07'
-  const returnDate = '2024-05-14'
-
   const options = {
     method: 'GET',
-    url: `https://api1.diversesaga.com/api/v1/searchFlights?origin=${fromAirportCode}&destination=${toAirportCode}&date=${departureDate}&returnDate=${returnDate}&adults=1&currency=USD&countryCode=US&market=en-US`,
     headers: {
-      'Authorization': process.env.REACT_APP_FLIGHT_API_KEY,
+      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZmVlOWY0NzExY2JhYzhmOTcwMWU2ZSIsImlhdCI6MTY5NDQyNzYzNn0.SwKrDkRKUfSVxT4y0ysd07SPfsyuUQFlDbCI27UtcV4`,
     }
   };
 
-  axios.request(options).then((res) => {
-    res.json(res.data)
-  }).catch((error) => {
-    console.error(error)
-  })
-
-
+  fetch(`https://api1.diversesaga.com/api/v1/searchFlights?origin=${currentFlightInfo.fromAirport}&destination=${currentFlightInfo.toAirport}&date=${currentFlightInfo.departureDay}&returnDate=${currentFlightInfo.returnDay}&adults=1&currency=USD&countryCode=US&market=en-US`, options)
+  .then(res => res.json())
+  .then(data => res.json(data))
+  .catch((error) => {
+    console.log(error)
+  });
 })
+
+
 
 /* RENDER CLIENT FOR ALL PAGES */
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "/client/build/index.html"))); 
