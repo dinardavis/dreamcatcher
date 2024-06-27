@@ -78,6 +78,13 @@ input[type=number] {
   box-shadow: 1px 1px 10px rgba(42, 41, 41, 0.038);
 }
 
+.widget-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #widget-close-btn-container {
   position: absolute;
   display: flex;
@@ -703,7 +710,16 @@ section,
 /* CALENDAR COMPONENT STYLES */
 
 .advert-container {
+  position: relative;
   overflow-y: scroll;
+}
+
+.advert-copy {
+  position: absolute;
+  width: 100%;
+  padding: .4rem;
+  color: #fff;
+  font-weight: 300;
 }
 
 
@@ -807,6 +823,14 @@ section,
   width: 70px;
 }
 
+.weather--high {
+  padding-right: 2px;
+}
+
+.weather--low {
+  padding-left: 2px;
+}
+
 .weather-footer {
   display: flex;
   justify-content: space-between;
@@ -821,7 +845,6 @@ section,
   justify-content: space-between;
   align-items: center;
   max-width: 180px;
-  width: 50%;
 }
 
 .toggle-temp-units {
@@ -872,10 +895,6 @@ section,
 /* ADVISORIES COMPONENT STYLES */
 .advisory-container {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   min-height: 275px;
 }
 
@@ -884,6 +903,7 @@ section,
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100%;
   text-align: center;
   font-size: 1.2rem;
@@ -895,7 +915,6 @@ section,
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
 }
 
 .advisory-country-container {
@@ -918,11 +937,12 @@ section,
 .advisory-divider {
   width: 100%;
   height: 1px;
+  margin-top: .7rem;
   background-color: #727272;
 }
 
 .advisory-score {
-  margin: 1rem 0 .7rem;
+  margin: 1rem 0 2.2rem;
   padding: .5rem 1rem;
   background-color: rgba(255, 255, 255, 0.8);
   font-size: 1.4rem;
@@ -931,16 +951,25 @@ section,
 }
 
 .advisory-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  height: 100%;
+  line-height: 1.2;
+}
+
+.advisory-current {
+  margin: 0 0 .7rem;
   font-weight: 300;
-  font-size: 1rem;
- 
+  font-size: 1.2rem;
 }
 .advisory-update-time {
-  position: absolute;
-  bottom: -10px;
-  right: 10px;
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem 0 0;
   font-weight: 300;
-  font-size: .8rem;
+  font-size: .65rem;
 }
 
 /* Currency component styles */

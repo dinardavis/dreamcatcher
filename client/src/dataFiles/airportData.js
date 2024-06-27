@@ -98,6 +98,18 @@ export const airportData = [
     "objectID": "3670"
   },
   {
+    "name": "Newark Liberty Intl Airport",
+    "city": "New Jersey",
+    "country": "United States",
+    "iata_code": "EWR",
+    "_geoloc": {
+      "lat": 40.6895,
+      "lng": -74.1745
+    },
+    "links_count": 915,
+    "objectID": "3777"
+  },
+  {
     "name": "John F Kennedy Intl",
     "city": "New York",
     "country": "United States",
@@ -8111,7 +8123,7 @@ export const airportData = [
       "lng": 45.281113
     },
     "links_count": 30,
-    "objectID": "915"
+    "objectID": "9199"
   },
   {
     "name": "Nanping Wuyishan Airport",

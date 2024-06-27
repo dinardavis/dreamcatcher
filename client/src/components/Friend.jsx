@@ -1,3 +1,4 @@
+
 import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +24,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const patchFriend = async () => {
     const response = await fetch(
-      `./users/${_id}/${friendId}`,
+      `http://localhost:3001/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {
@@ -41,10 +42,10 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
       <FlexBetween gap="1rem">
         <UserImage image={userPicturePath} size="55px" />
         <Box
-          // onClick={() => {
-          //   navigate(`/profile/${friendId}`);
-          //   navigate(0);
-          // }}
+          onClick={() => {
+            navigate(`/profile/${friendId}`);
+            navigate(0);
+          }}
         >
           <Typography
             color={main}
@@ -64,8 +65,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
           </Typography>
         </Box>
       </FlexBetween>
-      {_id !== friendId ? 
-        <IconButton
+      <IconButton
         onClick={() => patchFriend()}
         sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
       >
@@ -74,10 +74,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
         ) : (
           <PersonAddOutlined sx={{ color: primaryDark }} />
         )}
-      </IconButton> :
-      <div></div>
-      }
-     
+      </IconButton>
     </FlexBetween>
   );
 };
