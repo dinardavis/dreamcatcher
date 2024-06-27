@@ -1,11 +1,11 @@
-import express from "express";
+import express, { response } from "express";
 import axios from "axios";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import multer from "multer";
-import helmet from "helmet";
+// import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -18,17 +18,17 @@ import { verifyToken } from "./middleware/auth.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
-import { Console } from "console";
 
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+// app.use(helmet());
+// app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -55,100 +55,79 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 
-// /* USE CLIENT APP */ 
+/* USE CLIENT APP */ 
 app.use(express.static(path.join(__dirname, "/client/build")))
 
-
-/* CURRENT SEARCH DATA */
-let currentCityAndTempInfo;
-let currentFlightInfo;
-
-
-app.post('/currentCityAndTemp', (req, res) => {
-  const { cityAndTempParcel } = req.body
-  currentCityAndTempInfo = cityAndTempParcel
+/* LOCATION API */
+app.get('/location', (req, res) => {
+  let location = [
+    {
+      current: "Paris"
+    }
+  ]
+  res.json(location)
 })
 
-app.get('/currentCityAndTemp', (req, res) => { 
-  res.send(currentCityAndTempInfo)
+/* ADVISORY WIDGET DATA SEARCH */
+app.get('/advisory', (req, res) => {
+  fetch(`https://www.travel-advisory.info/api`)
+  .then(res => res.json())
+  .then(data => res.json(data.data))
+    .catch((err) => {
+      console.log(err);
+  })
 })
 
-app.post('/flightinfo', (req, res) => {
-  const { flightParcel } = req.body
-  currentFlightInfo = flightParcel
-})
-
-app.get('/flightinfo', (req, res) => { 
-  res.send(currentFlightInfo)
-})
-
-
-app.post('/initializeData', (req, res) => {
-  const { flightParcel } = req.body
-  currentFlightInfo = flightParcel
-  const { cityAndTempParcel } = req.body
-  currentCityAndTempInfo = cityAndTempParcel
-  // console.log(currentFlightInfo)
-  // console.log(currentCityAndTempInfo)
-})
-
-
-
-
-/* WEATHER SEARCH API CALL */
-
-const WEATHER_API_KEY = process.env.OPENWEATHER_API_KEY
-
-app.get('/weather', (req, res) => {
-  setTimeout(() => {
-    console.log(currentCityAndTempInfo)
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCityAndTempInfo.city}&units=${currentCityAndTempInfo.temperatureUnits}&appid=${WEATHER_API_KEY}`)
-    .then(res => res.json())
-    .then(data => res.json(data))
-    .catch(err => {
-        console.log(err)
-    })
-  }, 2000);
-})
-
-
-/* PHOTO CAROUSEL SEARCH API CALL */
-
-const PHOTO_API_KEY = process.env.UNSPLASH_API_KEY
-
+/* PHOTOS WIDGET DATA SEARCH */
 app.get('/photos', (req, res) => {
-  let photosArray = []
-  fetch(`https://api.unsplash.com/search/photos/?query=${currentCityAndTempInfo.city}&client_id=${PHOTO_API_KEY}&orientation=portrait&per_page=30`)
+  const location = {
+    current: "Paris"
+  }
+
+  fetch(`https://api.unsplash.com/search/photos/?query=${location.current}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&orientation=portrait&per_page=30`)
+      .then(res => res.json())
+      .then(data => res.json(data))
+      .catch((error) => {
+        console.log(error)
+      });
+})
+
+/* WHEATHER WIDGET DATA SEARCH */
+app.get('/weather', (req, res) => {
+  const location = "paris"
+  const tempUnits = "imperial"
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${tempUnits}&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)
   .then(res => res.json())
   .then(data => res.json(data))
-  .then(data => photosArray.push(data))
-  .catch((error) => {
-    console.log(error)
+  .catch(err => {
+      console.log(err)
   });
 })
 
-
-
-/* FLIGHT SEARCH API CALL */
-
-const FLIGHT_INFO_API_KEY = process.env.FLIGHT_API_KEY
-
+/* FLIGHT WIDGET DATA SEARCH */
 app.get('/flight', (req, res) => {
+
+  const fromAirportCode = 'SFO'
+  const toAirportCode = 'LHR'
+  const departureDate = '2024-05-07'
+  const returnDate = '2024-05-14'
+
   const options = {
     method: 'GET',
+    url: `https://api1.diversesaga.com/api/v1/searchFlights?origin=${fromAirportCode}&destination=${toAirportCode}&date=${departureDate}&returnDate=${returnDate}&adults=1&currency=USD&countryCode=US&market=en-US`,
     headers: {
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZmVlOWY0NzExY2JhYzhmOTcwMWU2ZSIsImlhdCI6MTY5NDQyNzYzNn0.SwKrDkRKUfSVxT4y0ysd07SPfsyuUQFlDbCI27UtcV4`,
+      'Authorization': process.env.REACT_APP_FLIGHT_API_KEY,
     }
   };
 
-  fetch(`https://api1.diversesaga.com/api/v1/searchFlights?origin=${currentFlightInfo.fromAirport}&destination=${currentFlightInfo.toAirport}&date=${currentFlightInfo.departureDay}&returnDate=${currentFlightInfo.returnDay}&adults=1&currency=USD&countryCode=US&market=en-US`, options)
-  .then(res => res.json())
-  .then(data => res.json(data))
-  .catch((error) => {
-    console.log(error)
-  });
-})
+  axios.request(options).then((res) => {
+    res.json(res.data)
+  }).catch((error) => {
+    console.error(error)
+  })
 
+
+})
 
 /* RENDER CLIENT FOR ALL PAGES */
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "/client/build/index.html"))); 
@@ -161,7 +140,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    app.listen(PORT, () => console.log(`Running on server port: ${PORT}`));
 
     /* ADD DATA ONE TIME */
     // User.insertMany(users);

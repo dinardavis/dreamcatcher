@@ -218,8 +218,11 @@ const HomePage = () => {
   }
 
   function clearInput() {
-    document.querySelector(".search-input").value = "";
+    document.querySelector("#city-search-input").value = "";
   }
+
+
+
 
   // Select airport from user input
 
@@ -236,12 +239,36 @@ const HomePage = () => {
     setToAirportCode(airport[0].iata_code);
   }
 
+
+  const updateLocationData = async() => {
+    const currentLocationData = await fetch(`https://dreamcatcher.onrender.com/location`, {
+      method: "PATCH",
+      header: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(
+        {
+          "current": "Kiev"
+        }
+      )
+    })
+    console.log('working!')
+  }
+
+    // fetch(`https://dreamcatcher.onrender.com/location`)
+    // .then(res => res.json())
+    // .then(data => console.log(data.current))
+    // .catch((err) => {
+    //   console.log(err);
+    // })
+
   function updateLocation(e) {
     e.preventDefault();
     const introCopyError = document.querySelector(".intro-copy-error");
     if (cityNames.includes(location.toUpperCase())) {
       introCopyError.style.visibility = "hidden";
       setSearchParam(location);
+      updateLocationData(location);
       getAirportCode();
       getCountryCode(airportData, "city", location);
     } else {
