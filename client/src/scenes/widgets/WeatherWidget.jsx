@@ -4,7 +4,7 @@ import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
 import WidgetCloseButton from "./WidgetCloseButton";
 
-// const WEATHER_API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY
+const WEATHER_API_KEY = process.env.REACT_APP_OPENWEATHER_API_KEY
 
 export default function WeatherWidget(props) {
   const { palette } = useTheme();
@@ -12,24 +12,35 @@ export default function WeatherWidget(props) {
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
 
-
+  const [weatherInfo, setWeatherInfo] = React.useState(null)
+  const [tempUnits, setTempUnits] = React.useState(JSON.parse(localStorage.getItem("currentTempUnits")) || "imperial")
   const [fetchDataError, setFetchDataError] = React.useState(false);
 
 
-  const baseUrl = 'https://dreamcatcher.onrender.com'
-
   React.useEffect(() => {
-    fetch(baseUrl + `/weather`)
+    fetch(`https://dreamcatcher.onrender.com/weather`)
       .then(res => res.json())
-      .then(data => props.updateWeatherInfo(data))
+      .then(data => setWeatherInfo(data))
       .then(setFetchDataError(false))
       .catch(err => {
           console.log(err)
           setFetchDataError(true)
       })
+  }, [props.searchParam, tempUnits])
 
-  }, [props.searchParam, props.weatherInfo.weatherUnits])
+  // Save chosen units to localStorage
 
+  React.useEffect(() => {
+    localStorage.setItem("currentTempUnits", JSON.stringify(tempUnits))
+  }, [tempUnits])
+
+  function toggleUnits() {
+    if(tempUnits === "imperial") {
+      return setTempUnits("metric")
+    } else {
+      return setTempUnits("imperial")
+    }
+  }
 
   // Set corresponding weather icon image based on fetched data
   
@@ -59,57 +70,33 @@ export default function WeatherWidget(props) {
 
   return (
     <>
-     {!props.weatherInfo ? 
+      <WidgetWrapper className="weather-container light-mode widget-radius" style={{ display: props.showWidgets.showWeatherWidget ? '': 'none'}}>
+        <WidgetCloseButton
+          closeWidgetFunction={props.toggleWeatherWidget}
+        ></WidgetCloseButton>
+        {!weatherInfo ? 
         <p className="loading">Loading...</p> :
-        <WidgetWrapper className="weather-container light-mode widget-radius" style={{ display: props.showWidgets.showWeatherWidget ? '': 'none'}}>
-          <WidgetCloseButton
-            closeWidgetFunction={props.toggleWeatherWidget}
-          ></WidgetCloseButton>
-          <p className="weather--location">{props.weatherInfo.cityName}, {props.weatherInfo.countryName}</p>
+        <>
+          <p className="weather--location">{weatherInfo.name}, {weatherInfo.sys.country}</p>
           <div className="temp-icon-container">
-            <p className="weather--temp">{Math.round(props.weatherInfo.temp)} {props.weatherInfo.weatherUnits === "imperial" ? "°F" : "°C" }</p>
-            {/* <img className="weather--icon" src={`imgs/weather/${selectWeatherIcon(props.weatherInfo.weather[0].main)}`} alt={props.weatherInfo.weather[0].description} /> */}
+            <p className="weather--temp">{Math.round(weatherInfo.main.temp)} {tempUnits === "imperial" ? "°F" : "°C" }</p>
+            <img className="weather--icon" src={`imgs/weather/${selectWeatherIcon(weatherInfo.weather[0].main)}`} alt={weatherInfo.weather[0].description} />
           </div>
-          <p className="weather--feels">Feels Like: {Math.round(props.weatherInfo.feelsLike)} {props.weatherInfo.weatherUnits === "imperial" ? "°F" : "°C" }</p>
-          <div className="weather--desc">{props.weatherInfo.desc} </div>
+          <p className="weather--feels">Feels Like: {Math.round(weatherInfo.main.feels_like)} {tempUnits === "imperial" ? "°F" : "°C" }</p>
+          <div className="weather--desc">{weatherInfo.weather[0].main} </div>
+      
+    
         
           <div className="weather-footer">
             <div className="temp-min-max"> 
-              <p className="weather--high">High: {Math.round(props.weatherInfo.tempMax)} {props.weatherInfo.weatherUnits === "imperial" ? "°F" : "°C" }</p> •
-              <p className="weather--low">Low: {Math.round(props.weatherInfo.tempMin)} {props.weatherInfo.weatherUnits === "imperial" ? "°F" : "°C" }</p>
+              <p className="weather--high">High: {Math.round(weatherInfo.main.temp_max)} {tempUnits === "imperial" ? "°F" : "°C" }</p> •
+              <p className="weather--low">Low: {Math.round(weatherInfo.main.temp_min)} {tempUnits === "imperial" ? "°F" : "°C" }</p>
             </div>
-            <div className="toggle-temp-units" onClick={props.toggleUnits}>°F / °C</div>
+            <div className="toggle-temp-units" onClick={toggleUnits}>°F / °C</div>
           </div>
-        </WidgetWrapper>
-      }
-
-
-
-
-
-      {/* {!props.weatherInfo ? 
-        <p className="loading">Loading...</p> :
-        <WidgetWrapper className="weather-container light-mode widget-radius" style={{ display: props.showWidgets.showWeatherWidget ? '': 'none'}}>
-          <WidgetCloseButton
-            closeWidgetFunction={props.toggleWeatherWidget}
-          ></WidgetCloseButton>
-          <p className="weather--location">{props.weatherInfo.name}, {props.weatherInfo.sys.country}</p>
-          <div className="temp-icon-container">
-            <p className="weather--temp">{Math.round(props.weatherInfo.main.temp)} {props.tempUnits === "imperial" ? "°F" : "°C" }</p>
-            <img className="weather--icon" src={`imgs/weather/${selectWeatherIcon(props.weatherInfo.weather[0].main)}`} alt={props.weatherInfo.weather[0].description} />
-          </div>
-          <p className="weather--feels">Feels Like: {Math.round(props.weatherInfo.main.feels_like)} {props.tempUnits === "imperial" ? "°F" : "°C" }</p>
-          <div className="weather--desc">{props.weatherInfo.weather[0].main} </div>
-        
-          <div className="weather-footer">
-            <div className="temp-min-max"> 
-              <p className="weather--high">High: {Math.round(props.weatherInfo.main.temp_max)} {props.tempUnits === "imperial" ? "°F" : "°C" }</p> •
-              <p className="weather--low">Low: {Math.round(props.weatherInfo.main.temp_min)} {props.tempUnits === "imperial" ? "°F" : "°C" }</p>
-            </div>
-            <div className="toggle-temp-units" onClick={props.toggleUnits}>°F / °C</div>
-          </div>
-        </WidgetWrapper>
-      } */}
+        </>
+        }
+      </WidgetWrapper>
     </>
   )
 }

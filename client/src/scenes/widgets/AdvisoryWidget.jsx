@@ -15,9 +15,9 @@ export default function AdvisoryWidget(props) {
   const [advisories, setAdvisories] = React.useState(null)
     
   React.useEffect(() => {
-    fetch(`https://www.travel-advisory.info/api`)
+    fetch(`https://dreamcatcher.onrender.com/advisory`)
       .then(res => res.json())
-      .then(data => setAdvisories(data.data[props.countryCode]))
+      .then(data => setAdvisories(data[props.countryCode]))
       .catch((err) => {
         console.log(err);
       })
@@ -60,13 +60,11 @@ export default function AdvisoryWidget(props) {
               </div>
               <div className="advisory-divider"></div>
                 {advisories ? <p className="advisory-score" style={styles}>{`Risk Level - ${advisories.advisory.message.split('risk level of ')[1].split(' ').slice(0, 4).join(' ').slice(0, -1)}`}</p> : <p className="advisory-score">No advisory score available</p>}
-                <div className="advisory-footer">
-                  {advisories ? <p className="advisory-current"><span>{`${advisories.advisory.message.split('(out of 5).')[1]}`}</span></p> : <p className="advisory-current"><span>No advisory recommendation available</span></p>}
-                  {advisories ?  <p className="advisory-update-time">{`Last Updated: ${advisories.advisory.updated.split(' ')[0]}`}</p> : <p className="aadvisory-update-time">Date not available</p>}
-                </div>
+
+                {advisories ? <p className="advisory-footer"><span>{`${advisories.advisory.message.split('(out of 5).')[1]}`}</span></p> : <p className="advisory-footer"><span>No advisory recommendation available</span></p>}
             </div>
             {/* {fetchDataError && <div className="error-message">There was a problem retrieving the weather for that location</div>} */}
-           
+            {advisories ?  <p className="advisory-update-time">{`Last Updated: ${advisories.advisory.updated.split(' ')[0]}`}</p> : <p className="aadvisory-update-time">Date not available</p>}
           </div>
         }
       </WidgetWrapper>
