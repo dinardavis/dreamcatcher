@@ -68,7 +68,7 @@ export default function WeatherWidget(props) {
           <p className="weather--location">{props.weatherInfo.cityName}, {props.weatherInfo.countryName}</p>
           <div className="temp-icon-container">
             <p className="weather--temp">{Math.round(props.weatherInfo.temp)} {props.weatherInfo.weatherUnits === "imperial" ? "°F" : "°C" }</p>
-            {/* <img className="weather--icon" src={`imgs/weather/${selectWeatherIcon(props.weatherInfo.weather[0].main)}`} alt={props.weatherInfo.weather[0].description} /> */}
+            <img className="weather--icon" src={`imgs/weather/${selectWeatherIcon(props.weatherInfo.main)}`} alt={props.weatherInfo.description} />
           </div>
           <p className="weather--feels">Feels Like: {Math.round(props.weatherInfo.feelsLike)} {props.weatherInfo.weatherUnits === "imperial" ? "°F" : "°C" }</p>
           <div className="weather--desc">{props.weatherInfo.desc} </div>
