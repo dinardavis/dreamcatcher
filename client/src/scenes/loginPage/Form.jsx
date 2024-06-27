@@ -16,7 +16,7 @@ import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 
-const AUTH_URL = "http://localhost:3001/auth"
+const AUTH_URL = "https://dreamcatcher.onrender.com/auth"
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
