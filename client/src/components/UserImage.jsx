@@ -8,7 +8,7 @@ const UserImage = ({ image, size = "60px"}) => {
         width={size}
         height={size}
         alt="user"
-        src={`https://dreamcatcher.onrender.com/assets/${image}`}
+        src={`./assets/${image}`}
       />
     </Box>
   )

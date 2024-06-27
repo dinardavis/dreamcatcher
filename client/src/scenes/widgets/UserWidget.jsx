@@ -67,6 +67,12 @@ const UserWidget = ({ userId, picturePath }) => {
               variant="h4"
               color={dark}
               fontWeight="500"
+              // sx={{
+              //   "&:hover": {
+              //     color: palette.primary.light,
+              //     cursor: "pointer"
+              //   }
+              // }}
               >
                 {firstName} {lastName}
               </Typography>
@@ -111,6 +117,7 @@ const UserWidget = ({ userId, picturePath }) => {
               </Typography>
             </Box>
           </FlexBetween>
+          {/* <EditOutlined sx={{ color: main }} /> */}
         </FlexBetween>
 
         <FlexBetween gap="1rem">
@@ -125,6 +132,7 @@ const UserWidget = ({ userId, picturePath }) => {
               </Typography>
             </Box>
           </FlexBetween>
+          {/* <EditOutlined sx={{ color: main }} /> */}
         </FlexBetween>
       </Box>
     </WidgetWrapper>

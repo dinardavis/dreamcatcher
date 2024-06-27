@@ -167,7 +167,7 @@ const data = {
               type="number"  
               name="amountToAdd"           
               className="amount-saved-input"
-              placeholder="New amount saved..."
+              placeholder="Amount To Add"
               value={budgetData.amountToAdd}
               onChange={handleCurrencyInput}
             />
