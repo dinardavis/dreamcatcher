@@ -5,7 +5,6 @@ import { Box, Typography, Divider, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
 
-const PHOTOS_API_KEY = process.env.REACT_APP_UNSPLASH_API_KEY
 
 /* PHOTO CAROUSEL */
 
@@ -19,10 +18,13 @@ export default function PhotosWidget(props) {
   const [index, setIndex] = React.useState(0);
   const timeoutRef = React.useRef(null);
 
+  const baseUrl = 'https://dreamcatcher.onrender.com'
+    
   React.useEffect(() => {
-    fetch(`https://dreamcatcher.onrender.com/photos`)
+    fetch(baseUrl + `/photos`)
       .then(res => res.json())
       .then(data => setPhotos(data.results))
+   
       .catch((error) => {
         console.log(error)
       });
@@ -71,7 +73,7 @@ export default function PhotosWidget(props) {
     return (  
       <div className="slide" key={photo.id} to="route" target="_blank" rel="noopener noreferrer" alt={photo.alt_description}>
         <a href={photo.urls.regular} key={photo.id} className="img-link" to="route" target="_blank" rel="noopener noreferrer">
-          <img src={photo.urls.regular} alt={photo.alt_description} id={`img-${index}`} className="grid-img" />
+          <img  src={photo.urls.regular} alt={photo.alt_description} id={`img-${index}`}  className="grid-img" />
         </a>  
       </div>
     )
@@ -90,7 +92,7 @@ export default function PhotosWidget(props) {
           <div className="slide-arrow left" onClick={() => moveToPreviousImage()}><FiChevronLeft /></div>
           <div className="slideshow-counter">{`${index + 1}/${photos.length}`}</div>
           <div className="slide-arrow right" onClick={() => moveToNextImage()}><FiChevronRight /></div>
-        </div>   
+        </div>                     
       </div>
   )
 }

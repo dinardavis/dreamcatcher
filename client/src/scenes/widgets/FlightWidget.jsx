@@ -13,23 +13,11 @@ export default function FlightsWidget(props) {
   const [flightPrice, setFlightPrice] = React.useState(599.99);
   const [fetchDataError, setFetchDataError] = React.useState(false);
   const [departureCity, setDepartureCity] = React.useState(() => JSON.parse(localStorage.getItem("departFrom")) || "San Francisco")
-  const [departureDate, setDepartureDate] = React.useState(() => {
-    let today = new Date()
-    today.setDate(today.getDate() + 7) //Initialize departureDate to one week from today
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let yyyy = today.getFullYear();
-    return `${yyyy}-${mm}-${dd}`
-  });
+ 
 
-  const [returnDate, setReturnDate] = React.useState(() => {
-    let today = new Date()
-    today.setDate(today.getDate() + 14) //Initialize returnDate to one week after departureDate
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let yyyy = today.getFullYear();
-    return `${yyyy}-${mm}-${dd}`
-  })
+
+
+
 
 // SORT IMPORTED AIRPORT ARRIVAL DATA BY CITY AND COUNTRY
 
@@ -51,18 +39,21 @@ function getDepartureCity() {
   const matchingCityName = props.filteredDepartureAirportData.filter(airport => {
     const cityFromData = airport.iata_code
     return cityFromData.includes(departureCityInput.value)
-    
   })
   setDepartureCity(matchingCityName[0].city)
+  postFlightDataToServer(props.fromAirportCode, props.toAirportCode, props.departureDate, props.returnDate)
+  getFlightInfoFromServer()
 }
 
-function getDepatureDate(e) {
+function getDepartureDate(e) {
   let flightDateError = document.querySelector(".flight-date-error")
-  if(e.target.value > returnDate) {
+  if(e.target.value > props.returnDate) {
     flightDateError.innerText = "Departure date cannot be after return date"
   } else {
     flightDateError.innerText = ""
-    setDepartureDate(e.target.value)
+    props.setDepartureDate(e.target.value)
+    postFlightDataToServer(props.fromAirportCode, props.toAirportCode, props.departureDate, props.returnDate)
+    getFlightInfoFromServer()
   }
 }
 
@@ -72,26 +63,53 @@ React.useEffect(() => {
 
 function getReturnDate(e) {
   let flightDateError = document.querySelector(".flight-date-error")
-  if(e.target.value < departureDate) {
+  if(e.target.value < props.departureDate) {
     flightDateError.innerText = "Return date cannot be prior to departure date"
   } else {
     flightDateError.innerText = ""
-    setReturnDate(e.target.value)
+    props.setReturnDate(e.target.value)
+    postFlightDataToServer(props.fromAirportCode, props.toAirportCode, props.departureDate, props.returnDate)
+    getFlightInfoFromServer()
   }
 }
 
-const FLIGHT_API_KEY = process.env.REACT_APP_FLIGHT_API_KEY
+const baseUrl = 'https://dreamcatcher.onrender.com'
 
-  React.useEffect(() => {
-    fetch(`https://dreamcatcher.onrender.com/flight`)
+async function postFlightDataToServer(from, to, departing, returning) {
+  const res = await fetch(baseUrl + "/flightinfo", 
+    {
+      method: 'POST',
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({
+        flightParcel: {
+          fromAirport: from,
+          toAirport: to,
+          departureDay: departing,
+          returnDay: returning
+        }
+      })
+    }
+  )
+}
+
+async function getFlightInfoFromServer() {
+  await fetch(baseUrl + "/flightinfo")
     .then(res => res.json())
-    .then(data => setFlightPrice(data[0].price.amount.toFixed(2) || 599.99))
-      .then(setFetchDataError(false))
-    .catch(err => {
-        console.log(err)
-        setFetchDataError(true)
-     });
-  }, [props.searchParam, props.toAirportCode, props.fromAirportCode, returnDate, departureDate, FLIGHT_API_KEY])
+    .then(data => console.log(data))
+}
+
+  // React.useEffect(() => {
+  //   fetch(`http://localhost:3001/flight`)
+  //   .then(res => res.json())
+  //   .then(data => setFlightPrice(data.data[0].price.amount.toFixed(2) || 599.99))
+  //     .then(setFetchDataError(false))
+  //   .catch(err => {
+  //       console.log(err)
+  //       setFetchDataError(true)
+  //    });
+  // }, [props.searchParam, props.toAirportCode, props.fromAirportCode, props.returnDate, props.departureDate])
 
   return (
     <WidgetWrapper className="flight-container light-mode widget-radius" style={{ display: props.showWidgets.showFlightWidget ? '': 'none'}}>
@@ -126,8 +144,8 @@ const FLIGHT_API_KEY = process.env.REACT_APP_FLIGHT_API_KEY
               <input 
                 type="date" 
                 className="datepicker-input depart-picker"
-                value={departureDate}
-                onChange={getDepatureDate}
+                value={props.departureDate}
+                onChange={getDepartureDate}
               >
               </input>
             </label>
@@ -148,7 +166,7 @@ const FLIGHT_API_KEY = process.env.REACT_APP_FLIGHT_API_KEY
               <input 
                 type="date" 
                 className="datepicker-input return-picker"
-                value={returnDate}
+                value={props.returnDate}
                 onChange={getReturnDate}
               >
               </input>
