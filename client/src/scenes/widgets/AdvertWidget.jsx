@@ -18,13 +18,6 @@ const AdvertWidget = () => {
         </Typography>
         <Typography fontWeight="300">Create Ad</Typography>
       </FlexBetween>
-      {/* <img 
-        width="100%"
-        height="auto"
-        alt="advert"
-        src="http://localhost:3001/assets/info4.jpeg"
-        style={{ borderRadius: "0.75rem", margin: "0.75rem 0"}}
-      /> */}
       <a href="https://www.rimowa.com/gb/en/home" target="_blank" rel="noreferrer">
         <video 
           src={advertVideo} 
@@ -41,14 +34,6 @@ const AdvertWidget = () => {
         >
         </video>
       </a>
-     
-      {/* <FlexBetween>
-        <Typography color={main}>DianaRiveraCosmetics</Typography>
-        <Typography color={medium}>dianariveracosmetics.com</Typography>
-      </FlexBetween>
-      <Typography color={medium} m="0.5rem 0">
-        Your pathway to stunning beauty!
-      </Typography> */}
     </div>
   )
 }

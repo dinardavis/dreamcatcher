@@ -244,6 +244,7 @@ const HomePage = () => {
     localStorage.setItem("widgetsDisplayed", JSON.stringify(showWidgets));
   }, [showWidgets]);
 
+  
   //Filter ARRIVAL cities with multiple airports to simplify airport data
   const uniqueCityAirports = [];
   const filteredAirportData = airportData.filter((airport) => {
@@ -322,29 +323,6 @@ const HomePage = () => {
     const airport = getMatchingAirport();
     setToAirportCode(airport[0].iata_code);
   }
-
-
-  // const updateLocationData = async() => {
-  //   const currentLocationData = await fetch(`https://dreamcatcher.onrender.com/location`, {
-  //     method: "PATCH",
-  //     header: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify(
-  //       {
-  //         "current": "Kiev"
-  //       }
-  //     )
-  //   })
-  //   console.log('working!')
-  // }
-
-  // fetch(`https://dreamcatcher.onrender.com/location`)
-  // .then(res => res.json())
-  // .then(data => console.log(data.current))
-  // .catch((err) => {
-  //   console.log(err);
-  // })
 
 
   React.useEffect(() => {
@@ -557,6 +535,7 @@ const HomePage = () => {
           tempUnits={tempUnits}
           setTempUnits={setTempUnits}
           weatherInfo={weatherInfo}
+          setWeatherInfo={setWeatherInfo}
           updateWeatherInfo={updateWeatherInfo}
           toggleUnits={toggleUnits}
           updateLocation={updateLocation}
