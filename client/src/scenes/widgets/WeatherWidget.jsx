@@ -17,7 +17,7 @@ export default function WeatherWidget(props) {
 
 
   React.useEffect(() => {
-    fetch(`http://localhost:3001/weather`)
+    fetch(`https://dreamcatcher.onrender.com/weather`)
       .then(res => res.json())
       .then(data => props.updateWeatherInfo(data))
       .then(setFetchDataError(false))

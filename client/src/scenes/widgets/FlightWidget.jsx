@@ -73,7 +73,7 @@ function getReturnDate(e) {
   }
 }
 
-const baseUrl = 'http://localhost:3001'
+const baseUrl = 'https://dreamcatcher.onrender.com'
 
 async function postFlightDataToServer(from, to, departing, returning) {
   const res = await fetch(baseUrl + "/flightinfo", 
@@ -95,21 +95,21 @@ async function postFlightDataToServer(from, to, departing, returning) {
 }
 
 async function getFlightInfoFromServer() {
-  await fetch("http://localhost:3001/flightinfo")
+  await fetch("https://dreamcatcher.onrender.com/flightinfo")
     .then(res => res.json())
     .then(data => console.log(data))
 }
 
-  // React.useEffect(() => {
-  //   fetch(`http://localhost:3001/flight`)
-  //   .then(res => res.json())
-  //   .then(data => setFlightPrice(data.data[0].price.amount.toFixed(2) || 599.99))
-  //     .then(setFetchDataError(false))
-  //   .catch(err => {
-  //       console.log(err)
-  //       setFetchDataError(true)
-  //    });
-  // }, [props.searchParam, props.toAirportCode, props.fromAirportCode, props.returnDate, props.departureDate])
+  React.useEffect(() => {
+    fetch(`https://dreamcatcher.onrender.com/flight`)
+    .then(res => res.json())
+    .then(data => setFlightPrice(data.data[0].price.amount.toFixed(2) || 599.99))
+      .then(setFetchDataError(false))
+    .catch(err => {
+        console.log(err)
+        setFetchDataError(true)
+     });
+  }, [props.searchParam, props.toAirportCode, props.fromAirportCode, props.returnDate, props.departureDate])
 
   return (
     <WidgetWrapper className="flight-container light-mode widget-radius" style={{ display: props.showWidgets.showFlightWidget ? '': 'none'}}>

@@ -355,7 +355,7 @@ const HomePage = () => {
 
 
 
-  const baseUrl = 'http://localhost:3001'
+  const baseUrl = 'https://dreamcatcher.onrender.com'
 
   async function postLoadDataToServer(citySearch, temp, from, to, departing, returning) {
     const res = await fetch(baseUrl + "/initializeData", 
@@ -401,12 +401,12 @@ const HomePage = () => {
 
 
   async function getUpdatedTempUnits() {
-    await fetch("http://localhost:3001/weather")
+    await fetch(baseUrl + "/weather")
       .then(res => res.json())
   }
 
   async function getInfoFromServer() {
-    await fetch("http://localhost:3001/currentCityAndTemp")
+    await fetch(baseUrl + "/currentCityAndTemp")
       .then(res => res.json())
   }
 
