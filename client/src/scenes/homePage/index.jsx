@@ -1,4 +1,6 @@
 import React from "react";
+import { useRef } from "react";
+import { useParams } from "react-router-dom";
 import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import Navbar from "scenes/navbar";
@@ -61,7 +63,61 @@ const HomePage = () => {
     showFriendListWidget: true, 
     showPostsWidget: true, 
   });
+  const [returnDate, setReturnDate] = React.useState(() => {
+    let today = new Date()
+    today.setDate(today.getDate() + 14) //Initialize returnDate to one week after departureDate
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+    return `${yyyy}-${mm}-${dd}`
+  })
+  const [departureDate, setDepartureDate] = React.useState(() => {
+    let today = new Date()
+    today.setDate(today.getDate() + 7) //Initialize departureDate to one week from today
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+    return `${yyyy}-${mm}-${dd}`
+  });
+
   const [isVisible, setIsVisible] = React.useState(false);
+  const [weatherInfo, setWeatherInfo] = React.useState({
+    cityName: "",
+    countryName: "",
+    temp: "",
+    weatherUnits: "",
+    desc: "",
+    feelsLike: "",
+    tempMax: "",
+    tempMin: "",
+  })
+
+ 
+
+  function updateWeatherInfo(weatherApiData){
+    setWeatherInfo(prevWeatherInfo => {
+      return {
+        ...prevWeatherInfo,
+        cityName: weatherApiData.name,
+        countryName: weatherApiData.sys.country,
+        temp: weatherApiData.main.temp,
+        weatherUnits: tempUnits,
+        desc: weatherApiData.weather[0].description,
+        feelsLike: weatherApiData.main.feels_like,
+        tempMax: weatherApiData.main.temp_max,
+        tempMin: weatherApiData.main.temp_min,
+      }
+    })
+  }
+
+
+
+  const [tempUnits, setTempUnits] = React.useState(() => JSON.parse(localStorage.getItem("currentTempUnits")) || "imperial")
+
+  React.useEffect(() => {
+    localStorage.setItem("currentTempUnits", JSON.stringify(weatherInfo.weatherUnits))
+    }, [weatherInfo.weatherUnits])
+
 
   function toggleFlightWidget() {
     setShowWidgets(prevWidgets => {
@@ -80,6 +136,9 @@ const HomePage = () => {
       }
     })
   }
+
+
+
 
   function toggleAdvisoryWidget() {
     setShowWidgets(prevWidgets => {
@@ -222,6 +281,31 @@ const HomePage = () => {
   }
 
 
+  function toggleUnits() {
+    if(tempUnits === "imperial") {
+      setTempUnits("metric")
+      postCityAndTempToServer(location, "metric")
+      setWeatherInfo(prevWeatherInfo => {
+        return {
+          ...prevWeatherInfo, 
+          weatherUnits: "metric",
+        }
+      })
+    } else {
+      setTempUnits("imperial")
+      postCityAndTempToServer(location, "imperial")
+      setWeatherInfo(prevWeatherInfo => {
+        return {
+          ...prevWeatherInfo, 
+          weatherUnits: "imperial",
+        }
+      })
+    }
+    getInfoFromServer()
+  }
+
+  console.log(weatherInfo)
+  console.log(`city: ${location}, tempUnits: ${tempUnits}, weatherUnits: ${weatherInfo.weatherUnits}`)
 
 
   // Select airport from user input
@@ -240,27 +324,91 @@ const HomePage = () => {
   }
 
 
-  const updateLocationData = async() => {
-    const currentLocationData = await fetch(`https://dreamcatcher.onrender.com/location`, {
-      method: "PATCH",
-      header: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(
-        {
-          "current": "Kiev"
-        }
-      )
-    })
-    console.log('working!')
+  // const updateLocationData = async() => {
+  //   const currentLocationData = await fetch(`https://dreamcatcher.onrender.com/location`, {
+  //     method: "PATCH",
+  //     header: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify(
+  //       {
+  //         "current": "Kiev"
+  //       }
+  //     )
+  //   })
+  //   console.log('working!')
+  // }
+
+  // fetch(`https://dreamcatcher.onrender.com/location`)
+  // .then(res => res.json())
+  // .then(data => console.log(data.current))
+  // .catch((err) => {
+  //   console.log(err);
+  // })
+
+
+  React.useEffect(() => {
+    postLoadDataToServer(location, tempUnits, fromAirportCode, toAirportCode, departureDate, returnDate)
+  }, [])
+
+
+
+
+
+  const baseUrl = 'http://localhost:3001'
+
+  async function postLoadDataToServer(citySearch, temp, from, to, departing, returning) {
+    const res = await fetch(baseUrl + "/initializeData", 
+      {
+        method: 'POST',
+        headers: {
+          "Content-Type": 'application/json'
+        },
+        body: JSON.stringify({
+          cityAndTempParcel: {
+            city: citySearch,
+            temperatureUnits: temp
+          },
+          flightParcel: {
+            fromAirport: from,
+            toAirport: to,
+            departureDay: departing,
+            returnDay: returning
+          }
+        })
+      }
+    )
   }
 
-    // fetch(`https://dreamcatcher.onrender.com/location`)
-    // .then(res => res.json())
-    // .then(data => console.log(data.current))
-    // .catch((err) => {
-    //   console.log(err);
-    // })
+
+  async function postCityAndTempToServer(citySearch, temp) {
+    const res = await fetch(baseUrl + "/currentCityAndTemp", 
+      {
+        method: 'POST',
+        headers: {
+          "Content-Type": 'application/json'
+        },
+        body: JSON.stringify({
+          cityAndTempParcel: {
+            city: citySearch,
+            temperatureUnits: temp
+          }
+        })
+      }
+    )
+  }
+
+
+
+  async function getUpdatedTempUnits() {
+    await fetch("http://localhost:3001/weather")
+      .then(res => res.json())
+  }
+
+  async function getInfoFromServer() {
+    await fetch("http://localhost:3001/currentCityAndTemp")
+      .then(res => res.json())
+  }
 
   function updateLocation(e) {
     e.preventDefault();
@@ -268,9 +416,10 @@ const HomePage = () => {
     if (cityNames.includes(location.toUpperCase())) {
       introCopyError.style.visibility = "hidden";
       setSearchParam(location);
-      updateLocationData(location);
       getAirportCode();
       getCountryCode(airportData, "city", location);
+      postCityAndTempToServer(location, weatherInfo.weatherUnits)
+      getInfoFromServer()
     } else {
       introCopyError.style.visibility = "visible";
     }
@@ -360,7 +509,7 @@ const HomePage = () => {
           searchParam={searchParam}
         />
 
-         {/* FRIENDLIST WIDGET CONTAINER */}
+        {/* FRIENDLIST WIDGET CONTAINER */}
         <FriendListWidget 
           userId={_id}
           toggleFriendListWidget={toggleFriendListWidget}
@@ -375,6 +524,10 @@ const HomePage = () => {
           searchParam={searchParam}
           fromAirportCode={fromAirportCode}
           setFromAirportCode={setFromAirportCode}
+          returnDate={returnDate}
+          setReturnDate={setReturnDate}
+          departureDate={departureDate}
+          setDepartureDate={setDepartureDate}
           toAirportCode={toAirportCode}
           filteredAirportData={filteredAirportData}
           filteredDepartureAirportData={filteredDepartureAirportData}
@@ -401,6 +554,12 @@ const HomePage = () => {
           searchParam={searchParam}
           toggleWeatherWidget={toggleWeatherWidget}
           showWidgets={showWidgets}
+          tempUnits={tempUnits}
+          setTempUnits={setTempUnits}
+          weatherInfo={weatherInfo}
+          updateWeatherInfo={updateWeatherInfo}
+          toggleUnits={toggleUnits}
+          updateLocation={updateLocation}
         />
 
         {/* ADVISORY WIDGET CONTAINER */}  
