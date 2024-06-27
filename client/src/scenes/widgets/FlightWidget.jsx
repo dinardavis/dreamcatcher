@@ -76,7 +76,7 @@ function getReturnDate(e) {
 const baseUrl = 'https://dreamcatcher.onrender.com'
 
 async function postFlightDataToServer(from, to, departing, returning) {
-  const res = await fetch(baseUrl + "/flightinfo", 
+  const res = await fetch("/flightinfo", 
     {
       method: 'POST',
       headers: {

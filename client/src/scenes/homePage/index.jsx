@@ -244,7 +244,7 @@ const HomePage = () => {
     localStorage.setItem("widgetsDisplayed", JSON.stringify(showWidgets));
   }, [showWidgets]);
 
-  
+
   //Filter ARRIVAL cities with multiple airports to simplify airport data
   const uniqueCityAirports = [];
   const filteredAirportData = airportData.filter((airport) => {
@@ -336,7 +336,7 @@ const HomePage = () => {
   const baseUrl = 'https://dreamcatcher.onrender.com'
 
   async function postLoadDataToServer(citySearch, temp, from, to, departing, returning) {
-    const res = await fetch(baseUrl + "/initializeData", 
+    const res = await fetch("/initializeData", 
       {
         method: 'POST',
         headers: {
@@ -360,7 +360,7 @@ const HomePage = () => {
 
 
   async function postCityAndTempToServer(citySearch, temp) {
-    const res = await fetch(baseUrl + "/currentCityAndTemp", 
+    const res = await fetch("/currentCityAndTemp", 
       {
         method: 'POST',
         headers: {
