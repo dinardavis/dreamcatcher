@@ -58,25 +58,29 @@ app.use("/posts", postRoutes);
 /* USE CLIENT APP */ 
 app.use(express.static(path.join(__dirname, "/client/build")))
 
-/* LOCATION API */
-app.get('/location', (req, res) => {
-  let location = [
-    {
-      current: "Paris"
-    }
-  ]
-  res.json(location)
+let currentCityAndTempInfo;
+let currentFlightInfo;
+
+
+app.post('/currentCityAndTemp', (req, res) => {
+  const { cityAndTempParcel } = req.body
+  currentCityAndTempInfo = cityAndTempParcel
 })
 
-/* ADVISORY WIDGET DATA SEARCH */
-app.get('/advisory', (req, res) => {
-  fetch(`https://www.travel-advisory.info/api`)
-  .then(res => res.json())
-  .then(data => res.json(data.data))
-    .catch((err) => {
-      console.log(err);
-  })
+app.get('/currentCityAndTemp', (req, res) => { 
+  res.send(currentCityAndTempInfo)
 })
+
+
+app.post('/initializeData', (req, res) => {
+  const { flightParcel } = req.body
+  currentFlightInfo = flightParcel
+  const { cityAndTempParcel } = req.body
+  currentCityAndTempInfo = cityAndTempParcel
+  // console.log(currentFlightInfo)
+  // console.log(currentCityAndTempInfo)
+})
+
 
 /* PHOTOS WIDGET DATA SEARCH */
 app.get('/photos', (req, res) => {
@@ -92,16 +96,18 @@ app.get('/photos', (req, res) => {
       });
 })
 
-/* WHEATHER WIDGET DATA SEARCH */
+const WEATHER_API_KEY = process.env.OPENWEATHER_API_KEY
+
 app.get('/weather', (req, res) => {
-  const location = "paris"
-  const tempUnits = "imperial"
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${tempUnits}&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`)
-  .then(res => res.json())
-  .then(data => res.json(data))
-  .catch(err => {
-      console.log(err)
-  });
+  setTimeout(() => {
+    console.log(currentCityAndTempInfo)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCityAndTempInfo.city}&units=${currentCityAndTempInfo.temperatureUnits}&appid=${WEATHER_API_KEY}`)
+    .then(res => res.json())
+    .then(data => res.json(data))
+    .catch(err => {
+        console.log(err)
+    })
+  }, 2000);
 })
 
 /* FLIGHT WIDGET DATA SEARCH */
