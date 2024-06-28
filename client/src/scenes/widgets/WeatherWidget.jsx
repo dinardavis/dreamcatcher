@@ -15,13 +15,24 @@ export default function WeatherWidget(props) {
 
   const [fetchDataError, setFetchDataError] = React.useState(false);
 
-
-    const baseUrl = 'https://dreamcatcher.onrender.com'
+  const baseUrl = 'https://dreamcatcher.onrender.com'
 
   React.useEffect(() => {
     fetch(baseUrl + "/weather")
       .then(res => res.json())
-      .then(data => props.updateWeatherInfo(data))
+      .then(data => props.setWeatherInfo(prevWeatherInfo => {
+        return {
+          ...prevWeatherInfo,
+          cityName: data.name,
+          countryName: data.sys.country,
+          temp: data.main.temp,
+          weatherUnits: "imperial",
+          desc: data.weather[0].description,
+          feelsLike: data.main.feels_like,
+          tempMax: data.main.temp_max,
+          tempMin: data.main.temp_min,
+        }
+      }))
       .then(setFetchDataError(false))
       .catch(err => {
           console.log(err)

@@ -50,7 +50,7 @@ const HomePage = () => {
     () => JSON.parse(localStorage.getItem("fromAirport")) || "SFO"
   );
   const [showWidgets, setShowWidgets] = React.useState(
-    () => JSON.parse(localStorage.getItem("widgetsDisplayed")) || {
+    () => JSON.parse(localStorage.getItem("widgetsDisplayed")) ||{
     showFlightWidget: true,
     showMapWidget: true,
     showAdvisoryWidget: true,
@@ -79,22 +79,20 @@ const HomePage = () => {
     let yyyy = today.getFullYear();
     return `${yyyy}-${mm}-${dd}`
   });
-  const [isVisible, setIsVisible] = React.useState(false);
-  const [weatherInfo, setWeatherInfo] = React.useState(
-    () => JSON.parse(localStorage.getItem("weatherData")) || {
-      cityName: "",
-      countryName: "",
-      temp: "",
-      weatherUnits: "",
-      desc: "",
-      feelsLike: "",
-      tempMax: "",
-      tempMin: "",
-    });
 
-  React.useEffect(() => {
-    localStorage.setItem("weatherData", JSON.stringify(weatherInfo));
-  }, [weatherInfo]);
+  const [isVisible, setIsVisible] = React.useState(false);
+  const [weatherInfo, setWeatherInfo] = React.useState({
+    cityName: "",
+    countryName: "",
+    temp: "",
+    weatherUnits: "",
+    desc: "",
+    feelsLike: "",
+    tempMax: "",
+    tempMin: "",
+  })
+
+ 
 
   function updateWeatherInfo(weatherApiData){
     setWeatherInfo(prevWeatherInfo => {
@@ -111,6 +109,8 @@ const HomePage = () => {
       }
     })
   }
+
+
 
   const [tempUnits, setTempUnits] = React.useState(() => JSON.parse(localStorage.getItem("currentTempUnits")) || "imperial")
 
