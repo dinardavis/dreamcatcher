@@ -20,10 +20,10 @@ import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
 
 
+
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -91,6 +91,22 @@ app.post('/initializeData', (req, res) => {
   // console.log(currentCityAndTempInfo)
 })
 
+
+/* WEATHER SEARCH API CALL */
+
+const WEATHER_API_KEY = process.env.OPENWEATHER_API_KEY
+
+app.get('/weather', (req, res) => {
+  setTimeout(() => {
+    console.log(currentCityAndTempInfo)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCityAndTempInfo.city}&units=${currentCityAndTempInfo.temperatureUnits}&appid=${WEATHER_API_KEY}`)
+    .then(res => res.json())
+    .then(data => res.json(data))
+    .catch(err => {
+        console.log(err)
+    })
+  }, 2000);
+})
 
 
 /* PHOTO CAROUSEL SEARCH API CALL */

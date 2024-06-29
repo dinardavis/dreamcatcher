@@ -82,14 +82,14 @@ const HomePage = () => {
 
   const [isVisible, setIsVisible] = React.useState(false);
   const [weatherInfo, setWeatherInfo] = React.useState({
-    cityName: "tokyo",
-    countryName: "JP",
-    temp: "70",
-    weatherUnits: "imperial",
-    desc: "Clouds",
-    feelsLike: "70",
-    tempMax: "80",
-    tempMin: "60",
+    cityName: "",
+    countryName: "",
+    temp: "",
+    weatherUnits: "",
+    desc: "",
+    feelsLike: "",
+    tempMax: "",
+    tempMin: "",
   })
 
  

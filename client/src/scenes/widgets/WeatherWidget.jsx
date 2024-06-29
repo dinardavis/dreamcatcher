@@ -16,7 +16,7 @@ export default function WeatherWidget(props) {
   const [fetchDataError, setFetchDataError] = React.useState(false);
 
 
-  const baseUrl = 'https://dreamcatcher.onrender.com'
+    const baseUrl = 'https://dreamcatcher.onrender.com'
 
   React.useEffect(() => {
     fetch(baseUrl + "/weather")
