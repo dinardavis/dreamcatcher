@@ -162,10 +162,10 @@ export const posts = [
   {
     _id: new mongoose.Types.ObjectId(),
     userId: userIds[1],
-    firstName: "Steve",
-    lastName: "Ralph",
-    location: "New York, CA",
-    description: "Some really long random description",
+    firstName: "Steven",
+    lastName: "Jones",
+    location: "New York, NY",
+    description: "Epic day on the shore today! I'm never going home. #hawaii #hangloose",
     picturePath: "post1.jpeg",
     userPicturePath: "p3.jpeg",
     likes: new Map([
@@ -175,19 +175,19 @@ export const posts = [
       [userIds[4], true],
     ]),
     comments: [
-      "random comment",
-      "another random comment",
-      "yet another random comment",
+      "looks amazing!",
+      "I'm so jealous! 😍",
+      "Be there next week. Can't wait!",
     ],
   },
   {
     _id: new mongoose.Types.ObjectId(),
     userId: userIds[3],
-    firstName: "Whatcha",
-    lastName: "Doing",
-    location: "Korea, CA",
+    firstName: "Angel",
+    lastName: "Smith",
+    location: "San Diego, CA",
     description:
-      "Another really long random description. This one is longer than the previous one.",
+      "This place is a whole vibe. 🍝",
     picturePath: "post2.jpeg",
     userPicturePath: "p6.jpeg",
     likes: new Map([
@@ -197,10 +197,10 @@ export const posts = [
       [userIds[2], true],
     ]),
     comments: [
-      "one more random comment",
-      "and another random comment",
-      "no more random comments",
-      "I lied, one more random comment",
+      "♥️",
+      "get it girl! 💃🏽",
+      "i dieeeee 😍",
+      "Looks a-maaay-zzzinnng!",
     ],
   },
   {
