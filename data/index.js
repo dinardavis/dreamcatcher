@@ -210,7 +210,7 @@ export const posts = [
     lastName: "Stover",
     location: "Park City, UT",
     description:
-      "Making it happen next year!",
+      "Making it happen next year! #Cuba 🇨🇺",
     picturePath: "post3.jpeg",
     userPicturePath: "p5.jpeg",
     likes: new Map([
