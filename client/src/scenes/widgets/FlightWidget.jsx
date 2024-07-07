@@ -95,13 +95,13 @@ async function postFlightDataToServer(from, to, departing, returning) {
 }
 
 async function getFlightInfoFromServer() {
-  await fetch(baseUrl + "/flightinfo")
+  await fetch("/flightinfo")
     .then(res => res.json())
     .then(data => console.log(data))
 }
 
   React.useEffect(() => {
-    fetch(baseUrl + "/flight")
+    fetch("/flight")
     .then(res => res.json())
     .then(data => setFlightPrice(data.data[0].price.amount.toFixed(2) || 599.99))
       .then(setFetchDataError(false))

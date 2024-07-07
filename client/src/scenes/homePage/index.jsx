@@ -273,7 +273,7 @@ const HomePage = () => {
   }
 
   function handleChange(event) {
-    const value = event.target.value;
+    const value = event.target.value.toLowerCase();
     setLocation(value);
   }
 

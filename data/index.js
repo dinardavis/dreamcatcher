@@ -220,11 +220,9 @@ export const posts = [
       [userIds[5], true],
     ]),
     comments: [
-      "one more random comment",
-      "I lied, one more random comment",
-      "I lied again, one more random comment",
-      "Why am I doing this?",
-      "I'm bored",
+      "I wanna go tooooo! 🚀",
+      "That's my dream spot.",
+      "when we leavin'???",
     ],
   },
   {
@@ -234,7 +232,7 @@ export const posts = [
     lastName: "Dunn",
     location: "Los Angeles, CA",
     description:
-      "This is the last really long random description. This one is longer than the previous one. Man I'm bored. I'm going to keep typing until I run out of things to say.",
+      "I'll see y'all at the bottom of bowl! 🥣😋",
     picturePath: "post4.jpeg",
     userPicturePath: "p7.jpeg",
     likes: new Map([
@@ -243,12 +241,9 @@ export const posts = [
       [userIds[3], true],
     ]),
     comments: [
-      "I lied again, one more random comment",
-      "Why am I doing this?",
-      "I'm bored",
-      "I'm still bored",
-      "All I want to do is play video games",
-      "I'm going to play video games",
+      "looks delish!",
+      "😍",
+      "when i was there i gain 10lbs. 🤣",
     ],
   },
   {
