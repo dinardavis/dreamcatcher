@@ -464,10 +464,10 @@ const HomePage = () => {
 
       <Box className="widget-display">
         {/* USER WIDGET CONTAINER */}
-        <UserWidget 
+        {/* <UserWidget 
           userId={_id}
           picturePath={picturePath}
-        />
+        /> */}
 
         <PostsWidget 
           userId={_id} 
