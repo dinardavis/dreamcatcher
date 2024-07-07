@@ -76,7 +76,7 @@ function getReturnDate(e) {
 const baseUrl = 'https://dreamcatcher.onrender.com'
 
 async function postFlightDataToServer(from, to, departing, returning) {
-  const res = await fetch(baseUrl + "/flightinfo", 
+  const res = await fetch("/flightinfo", 
     {
       method: 'POST',
       headers: {
@@ -95,13 +95,13 @@ async function postFlightDataToServer(from, to, departing, returning) {
 }
 
 async function getFlightInfoFromServer() {
-  await fetch("/flightinfo")
+  await fetch(baseUrl + "/flightinfo")
     .then(res => res.json())
     .then(data => console.log(data))
 }
 
   React.useEffect(() => {
-    fetch("/flight")
+    fetch(baseUrl + "/flight")
     .then(res => res.json())
     .then(data => setFlightPrice(data.data[0].price.amount.toFixed(2) || 599.99))
       .then(setFetchDataError(false))
