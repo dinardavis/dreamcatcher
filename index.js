@@ -81,13 +81,12 @@ app.get('/flightinfo', (req, res) => {
   res.send(currentFlightInfo)
 })
 
-
 app.post('/initializeData', (req, res) => {
   const { flightParcel } = req.body
   currentFlightInfo = flightParcel
   const { cityAndTempParcel } = req.body
   currentCityAndTempInfo = cityAndTempParcel
-  console.log(currentFlightInfo)
+  // console.log(currentFlightInfo)
   // console.log(currentCityAndTempInfo)
 })
 
@@ -134,7 +133,7 @@ app.get('/flight', (req, res) => {
   const options = {
     method: 'GET',
     headers: {
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZmVlOWY0NzExY2JhYzhmOTcwMWU2ZSIsImlhdCI6MTY5NDQyNzYzNn0.SwKrDkRKUfSVxT4y0ysd07SPfsyuUQFlDbCI27UtcV4`,
+      'Authorization': `${FLIGHT_INFO_API_KEY}`,
     }
   };
 
@@ -145,7 +144,6 @@ app.get('/flight', (req, res) => {
     console.log(error)
   });
 })
-
 
 
 /* RENDER CLIENT FOR ALL PAGES */
@@ -162,8 +160,8 @@ mongoose
     app.listen(PORT, () => console.log(`Running on server port: ${PORT}`));
 
     /* ADD DATA ONE TIME */
-    // User.insertMany(users);
-    // Post.insertMany(posts);
+    User.insertMany(users);
+    Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} did not connect`));
 
