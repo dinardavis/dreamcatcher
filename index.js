@@ -87,7 +87,7 @@ app.post('/initializeData', (req, res) => {
   currentFlightInfo = flightParcel
   const { cityAndTempParcel } = req.body
   currentCityAndTempInfo = cityAndTempParcel
-  // console.log(currentFlightInfo)
+  console.log(currentFlightInfo)
   // console.log(currentCityAndTempInfo)
 })
 
