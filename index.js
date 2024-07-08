@@ -133,11 +133,12 @@ app.get('/flight', (req, res) => {
   const options = {
     method: 'GET',
     headers: {
-      'Authorization': `${FLIGHT_INFO_API_KEY}`,
+      'x-rapidapi-key': `${FLIGHT_INFO_API_KEY}`,
+      'x-rapidapi-host': 'agoda-com.p.rapidapi.com'
     }
   };
 
-  fetch(`https://api1.diversesaga.com/api/v1/searchFlights?origin=${currentFlightInfo.fromAirport}&destination=${currentFlightInfo.toAirport}&date=${currentFlightInfo.departureDay}&returnDate=${currentFlightInfo.returnDay}&adults=1&currency=USD&countryCode=US&market=en-US`, options)
+  fetch(`https://agoda-com.p.rapidapi.com/flights/search-roundtrip?origin=${currentFlightInfo.fromAirport}&destination=${currentFlightInfo.toAirport}&departureDate=${currentFlightInfo.departureDay}&returnDate=${currentFlightInfo.returnDay}`, options)
   .then(res => res.json())
   .then(data => res.json(data))
   .catch((error) => {

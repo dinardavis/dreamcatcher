@@ -103,7 +103,7 @@ async function getFlightInfoFromServer() {
   React.useEffect(() => {
     fetch("/flight")
     .then(res => res.json())
-    .then(data => setFlightPrice(data.data[0].price.amount.toFixed(2) || 599.99))
+    .then(data => setFlightPrice(data.data.bundles[0].bundlePrice[0].price.usd.charges[0].total.inc.toFixed(2) || 599.99))
       .then(setFetchDataError(false))
     .catch(err => {
         console.log(err)
