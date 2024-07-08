@@ -383,6 +383,12 @@ const HomePage = () => {
       .then(res => res.json())
   }
 
+  async function getFlightInfoFromServer() {
+    await fetch("/flightinfo")
+      .then(res => res.json())
+      .then(data => console.log(data))
+  }
+
   async function getInfoFromServer() {
     await fetch(baseUrl + "/currentCityAndTemp")
       .then(res => res.json())
@@ -398,6 +404,7 @@ const HomePage = () => {
       getCountryCode(airportData, "city", location);
       postCityAndTempToServer(location, weatherInfo.weatherUnits)
       getInfoFromServer()
+      getFlightInfoFromServer()
     } else {
       introCopyError.style.visibility = "visible";
     }
@@ -511,6 +518,7 @@ const HomePage = () => {
           filteredDepartureAirportData={filteredDepartureAirportData}
           showWidgets={showWidgets}
           toggleFlightWidget={toggleFlightWidget}
+          getFlightInfoFromServer={getFlightInfoFromServer}
         />
 
         {/* GOOGLE MAP WIDGET CONTAINER */}

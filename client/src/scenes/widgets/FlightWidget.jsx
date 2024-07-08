@@ -42,7 +42,7 @@ function getDepartureCity() {
   })
   setDepartureCity(matchingCityName[0].city)
   postFlightDataToServer(props.fromAirportCode, props.toAirportCode, props.departureDate, props.returnDate)
-  getFlightInfoFromServer()
+  props.getFlightInfoFromServer()
 }
 
 function getDepartureDate(e) {
@@ -53,7 +53,7 @@ function getDepartureDate(e) {
     flightDateError.innerText = ""
     props.setDepartureDate(e.target.value)
     postFlightDataToServer(props.fromAirportCode, props.toAirportCode, props.departureDate, props.returnDate)
-    getFlightInfoFromServer()
+    props.getFlightInfoFromServer()
   }
 }
 
@@ -69,7 +69,7 @@ function getReturnDate(e) {
     flightDateError.innerText = ""
     props.setReturnDate(e.target.value)
     postFlightDataToServer(props.fromAirportCode, props.toAirportCode, props.departureDate, props.returnDate)
-    getFlightInfoFromServer()
+    props.getFlightInfoFromServer()
   }
 }
 
@@ -94,11 +94,7 @@ async function postFlightDataToServer(from, to, departing, returning) {
   )
 }
 
-async function getFlightInfoFromServer() {
-  await fetch("/flightinfo")
-    .then(res => res.json())
-    .then(data => console.log(data))
-}
+
 
   React.useEffect(() => {
     fetch("/flight")
