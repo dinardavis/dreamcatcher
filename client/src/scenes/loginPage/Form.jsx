@@ -275,6 +275,13 @@ const Form = () => {
             >
               {isLogin ? "Login" : "Register"}
             </button>
+            <button
+              fullWidth
+              type="submit"
+              className="guest-login-btn"
+            >
+              {isLogin ? "Guest Login" : "Guest Login"}
+            </button>
             <Typography
               onClick={() => {
                 setPageType(isLogin ? "register" : "login");
@@ -294,6 +301,8 @@ const Form = () => {
                 : "Already have an account? Login here."}
             </Typography>
           </Box>
+         
+          
         </form>
       )}
     </Formik>
