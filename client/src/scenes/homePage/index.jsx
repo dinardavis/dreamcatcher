@@ -404,7 +404,6 @@ const HomePage = () => {
       getCountryCode(airportData, "city", location);
       postCityAndTempToServer(location, weatherInfo.weatherUnits)
       getInfoFromServer()
-      getFlightInfoFromServer()
     } else {
       introCopyError.style.visibility = "visible";
     }

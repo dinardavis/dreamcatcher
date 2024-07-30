@@ -104,7 +104,7 @@ app.get('/weather', (req, res) => {
     .catch(err => {
         console.log(err)
     })
-  }, 2000);
+  }, 1000);
 })
 
 
