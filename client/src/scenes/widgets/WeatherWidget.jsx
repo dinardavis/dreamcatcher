@@ -27,7 +27,6 @@ export default function WeatherWidget(props) {
           console.log(err)
           setFetchDataError(true)
       })
-
   }, [props.searchParam, props.weatherInfo.weatherUnits])
 
 

@@ -92,6 +92,8 @@ const HomePage = () => {
     tempMin: "",
   })
 
+  console.log(weatherInfo)
+
  
 
   function updateWeatherInfo(weatherApiData){
