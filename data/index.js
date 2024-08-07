@@ -142,11 +142,11 @@ export const users = [
   },
   {
     _id: userIds[8],
-    firstName: "Clark",
-    lastName: "Kent",
-    email: "defaultuser@gmail.com",
-    password: "password",
-    picturePath: "default_user.jpeg",
+    firstName: "Guest",
+    lastName: "User",
+    email: "guestuser@gmail.com",
+    password: "password123!",
+    picturePath: "guest_user.jpeg",
     friends: [],
     location: "Smallville, KS",
     occupation: "It's a secret.",
@@ -232,7 +232,7 @@ export const posts = [
     lastName: "Dunn",
     location: "Los Angeles, CA",
     description:
-      "I'll see y'all at the bottom of bowl! 🥣😋",
+      "I'll see y'all at the bottom of the bowl! 🥣😋",
     picturePath: "post4.jpeg",
     userPicturePath: "p7.jpeg",
     likes: new Map([
@@ -243,7 +243,7 @@ export const posts = [
     comments: [
       "looks delish!",
       "😍",
-      "when i was there i gain 10lbs. 🤣",
+      "when i was there i gained 10lbs. 🤣",
     ],
   },
   {
@@ -253,7 +253,7 @@ export const posts = [
     lastName: "Ovel",
     location: "Chicago, IL",
     description:
-      "I love my city. ❤️ #FavoriteTimeOfYear",
+      "I love my city. ❤️ #FavoriteTimeOfYear #TheChi",
     picturePath: "post5.jpeg",
     userPicturePath: "p8.jpeg",
     likes: new Map([
@@ -273,7 +273,7 @@ export const posts = [
     lastName: "Dunn",
     location: "Washington, DC",
     description:
-      "Always a job to visit one DC's sister cities. #WorkHard #PlayHard #Paris",
+      "Always great to visit one DC's sister cities. #WorkHard #PlayHard #Paris",
     picturePath: "post6.jpeg",
     userPicturePath: "p9.jpeg",
     likes: new Map([
