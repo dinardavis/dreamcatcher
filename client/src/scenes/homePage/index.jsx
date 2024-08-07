@@ -305,8 +305,7 @@ const HomePage = () => {
     getInfoFromServer()
   }
 
-  console.log(weatherInfo)
-  console.log(`city: ${location}, tempUnits: ${tempUnits}, weatherUnits: ${weatherInfo.weatherUnits}`)
+
 
 
   // Select airport from user input
