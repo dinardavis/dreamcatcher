@@ -90,6 +90,7 @@ const HomePage = () => {
     feelsLike: "",
     tempMax: "",
     tempMin: "",
+    main: "",
   })
 
   console.log(weatherInfo)
@@ -108,6 +109,7 @@ const HomePage = () => {
         feelsLike: weatherApiData.main.feels_like,
         tempMax: weatherApiData.main.temp_max,
         tempMin: weatherApiData.main.temp_min,
+        main: weatherApiData.weather[0].main
       }
     })
   }
