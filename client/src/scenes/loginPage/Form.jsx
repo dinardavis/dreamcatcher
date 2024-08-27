@@ -272,10 +272,11 @@ const Form = () => {
           {/* BUTTONS */}
           <Box>
             <div className="guest-login-credentials">
-              <p>LogIn As Guest:</p>
-
-              <p className="guest-login-copy"><MailOutlineIcon className="guest-login-icon"/>guestuser@gmail.com</p>
-              <p className="guest-login-copy"><PasswordIcon className="guest-login-icon"/>password123!</p>
+              <p>Log In As Guest:</p>
+              <div>
+                <p className="guest-login-copy"><MailOutlineIcon className="guest-login-icon"/>guestuser@gmail.com</p>
+                <p className="guest-login-copy"><PasswordIcon className="guest-login-icon"/>password123!</p>
+              </div>
             </div>
 
           </Box>

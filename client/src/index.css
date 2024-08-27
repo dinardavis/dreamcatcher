@@ -201,7 +201,7 @@ section,
 
 .guest-login-credentials {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 52.71px;
   width: 100%;
@@ -211,6 +211,12 @@ section,
   color: #fff;
   padding: 0 10px;
   margin-top: 20px;
+}
+
+.guest-login-credentials div {
+  display: flex;
+  justify-content: space-evenly;
+  width: 80%;
 }
 
 .guest-login-credentials :first-child {
@@ -1797,12 +1803,6 @@ input[type="date"]{
 
 /* SCREEN MEDIA QUERIES */
 
-/* @media only screen and (max-width: 1150px) {
-  body {
-    min-width: 1250px;
-  }
-} */
-
 @media only screen and (max-width: 800px) {
   body {
     min-width: 100vw;
@@ -2007,5 +2007,23 @@ input[type="date"]{
   }
 }
  
+@media only screen and (max-width: 800px) {
+  .guest-login-credentials {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 5px;
+  }
+
+
+  .guest-login-credentials div {
+    width: 100%;
+  }
+
+  .guest-login-credentials > * {
+    margin: 0px;
+  }
+}
 
 
