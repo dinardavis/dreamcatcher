@@ -172,6 +172,7 @@ section,
 
 .login-btn {
   align-self: flex-start;
+  height: 52.71px;
   width: 100%;
   border: none;
   border-radius: 5px;
@@ -196,6 +197,37 @@ section,
   background-position: 100% 100%;
   background-size: 100% 55px;
   cursor: pointer;
+}
+
+.guest-login-credentials {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 52.71px;
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgba(255, 159, 28, .8);
+  font-size: 1rem;
+  color: #fff;
+  padding: 0 10px;
+  margin-top: 20px;
+}
+
+.guest-login-credentials :first-child {
+  font-size: .9rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+
+.guest-login-copy {
+  display: flex;
+  align-items: center;
+  font-size: .9rem;
+}
+
+.guest-login-icon {
+  margin-right: 5px;
 }
 
 /* NAVBAR COMPONENT STYLES */

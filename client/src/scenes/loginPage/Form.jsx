@@ -7,6 +7,8 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import PasswordIcon from '@mui/icons-material/Password';
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -253,6 +255,7 @@ const Form = () => {
               helperText={touched.email && errors.email}
               sx={{ gridColumn: "span 4" }}
             />
+            
             <TextField
               label="Password"
               type="password"
@@ -267,6 +270,16 @@ const Form = () => {
           </Box>
 
           {/* BUTTONS */}
+          <Box>
+            <div className="guest-login-credentials">
+              <p>LogIn As Guest:</p>
+
+              <p className="guest-login-copy"><MailOutlineIcon className="guest-login-icon"/>guestuser@gmail.com</p>
+              <p className="guest-login-copy"><PasswordIcon className="guest-login-icon"/>password123!</p>
+            </div>
+
+          </Box>
+
           <Box>
             <button
               fullWidth
