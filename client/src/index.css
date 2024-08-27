@@ -1817,35 +1817,32 @@ input[type="date"]{
   section,
   .section {
     min-height: 370px;
-    border-radius: 0px;
     box-shadow: none;
   }
 
   .widget-display {
     display: flex;
     flex-direction: column;
-    padding: 0;
-    grid-gap: 0px;
     max-width: 100vw;
     overflow-y: visible;
   }
 
-  .widget-display > div {
+  /* .widget-display > div {
     border: 0;
-  }
+  } */
 
-  .widget-radius {
+  /* .widget-radius {
     border-radius: 0px;
-  }
+  } */
 
   .main-nav {
     order: -1;
     min-height: 70px;
     width: 100%;
     padding: 10px 5px;
-    border-radius: 0;
-    background-color: #fff;
-    box-shadow: none;
+    /* border-radius: 0; */
+    /* background-color: #fff; */
+    /* box-shadow: none; */
   }
 
   .login-container {
@@ -1874,8 +1871,8 @@ input[type="date"]{
     padding: 0px 7px 40px;
     margin-top: 0;
     overflow-y: scroll;
-    border-radius: 0;
-    box-shadow: none;
+    /* border-radius: 0; */
+    /* box-shadow: none; */
     align-items: center;
   }
 
@@ -1904,7 +1901,7 @@ input[type="date"]{
     max-height: auto;
     width: auto;
     height: auto;
-    margin-top: 0px;
+    /* margin-top: 0px; */
     border: none;
     overflow-x: visible;
   }
@@ -1916,7 +1913,8 @@ input[type="date"]{
     /* height: 100px; */
     width: 105px;
     padding: 5px 15px;
-    margin: 0px 10px;
+    /* margin: 0px 10px; */
+    margin: 10px 10px;
   }
 
   .logout-container {
@@ -1961,8 +1959,8 @@ input[type="date"]{
   }
 
   .photo-container {
-    border-radius: 0;
-    box-shadow: none;
+    /* border-radius: 0; */
+    /* box-shadow: none; */
     max-height: 700px;
     min-height: 75vh;
   }
@@ -2005,9 +2003,7 @@ input[type="date"]{
   .todo-icon {
     opacity: 1;
   }
-}
- 
-@media only screen and (max-width: 800px) {
+
   .guest-login-credentials {
     flex-direction: column;
     justify-content: center;
@@ -2015,7 +2011,6 @@ input[type="date"]{
     height: auto;
     padding: 5px;
   }
-
 
   .guest-login-credentials div {
     width: 100%;
